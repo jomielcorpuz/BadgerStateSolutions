@@ -70,11 +70,10 @@ const BadgerStateSolutions = () => {
                     <div className="flex justify-between items-center py-4">
                         <div className="flex items-center space-x-2">
                             <Image
-                                src="/icons/logo1.png"
+                                src="/images/logo.png"
                                 alt="Badger State Solutions Logo"
-                                width={29}
-                                height={29}
-                                className="rounded-full"
+                                width={45}
+                                height={45}
                             />
                             <span className="text-2xl font-bold text-gray-900">
                                 Badger State Solutions
