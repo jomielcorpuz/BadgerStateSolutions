@@ -278,28 +278,6 @@ const BadgerStateSolutions = () => {
 
 
 
-            <AnimatedContent
-                distance={100}
-                direction="vertical"
-                reverse={false}
-                initialOpacity={0}
-                animateOpacity
-                scale={1.0}
-                threshold={0.1}
-                enableScrollUp={true}
-            >
-                <section id="features" className="py-24 bg-white relative">
-
-                </section>
-            </AnimatedContent>
-
-            <section className="py-24 relative overflow-hidden">
-
-
-            </section>
-
-
-
             {/* Our Services Section */}
             <section id="services" className="py-24 sm:py-32 bg-gradient-to-b from-white via-blue-50/10 to-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -398,8 +376,12 @@ const BadgerStateSolutions = () => {
                             </div>
                         </AnimatedContent>
                     </div>
+                </div>
+            </section>
 
-                    {/* Why Choose Us Section */}
+            {/* Our Approach Section */}
+            <section className="py-24 sm:py-32 bg-gradient-to-b from-white via-amber-50/20 to-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <AnimatedContent
                         distance={100}
                         direction="vertical"
@@ -408,7 +390,127 @@ const BadgerStateSolutions = () => {
                         animateOpacity
                         scale={1.0}
                         threshold={0.1}
-                        delay={350}
+                        delay={100}
+                        enableScrollUp={true}
+                    >
+                        <div className="text-center mb-16 sm:mb-20">
+                            <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-amber-900 mb-6 tracking-tight">
+                                <span className="bg-gradient-to-r from-amber-800 via-amber-600 to-yellow-600 bg-clip-text text-transparent">Our</span> Approach
+                            </h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-amber-600 to-yellow-600 mx-auto mb-8"></div>
+                        </div>
+                    </AnimatedContent>
+
+                    <AnimatedContent
+                        distance={100}
+                        direction="vertical"
+                        reverse={false}
+                        initialOpacity={0}
+                        animateOpacity
+                        scale={1.0}
+                        threshold={0.1}
+                        delay={150}
+                        enableScrollUp={true}
+                    >
+                        <div className="text-center mb-12">
+                            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-amber-800 mb-8 tracking-tight">
+                                How We Work
+                            </h3>
+                            <p className="text-xl sm:text-2xl lg:text-3xl text-amber-700/90 text-center mb-12 max-w-5xl mx-auto leading-relaxed font-light">
+                                Our proven methodology ensures consistent results and sustainable growth for your business.
+                            </p>
+                        </div>
+                    </AnimatedContent>
+
+                    <AnimatedContent
+                        distance={100}
+                        direction="vertical"
+                        reverse={false}
+                        initialOpacity={0}
+                        animateOpacity
+                        scale={1.0}
+                        threshold={0.1}
+                        delay={200}
+                        enableScrollUp={true}
+                    >
+                        <div className="bg-gradient-to-r from-amber-50/50 to-yellow-50/30 backdrop-blur-sm border border-amber-200/50 rounded-xl p-8 lg:p-12 mb-8">
+                            <h4 className="text-2xl lg:text-3xl font-bold text-amber-800 mb-8 lg:mb-10 text-center tracking-tight">
+                                Our Process:
+                            </h4>
+                            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
+                                    <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">📋</div>
+                                    <h5 className="text-xl lg:text-2xl font-bold text-amber-800 mb-2 tracking-tight">Assessment & Planning</h5>
+                                </div>
+                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
+                                    <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🔧</div>
+                                    <h5 className="text-xl lg:text-2xl font-bold text-amber-800 mb-2 tracking-tight">Implementation</h5>
+                                </div>
+                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
+                                    <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">📊</div>
+                                    <h5 className="text-xl lg:text-2xl font-bold text-amber-800 mb-2 tracking-tight">Monitoring & Optimization</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </AnimatedContent>
+
+                    <AnimatedContent
+                        distance={100}
+                        direction="vertical"
+                        reverse={false}
+                        initialOpacity={0}
+                        animateOpacity
+                        scale={1.0}
+                        threshold={0.1}
+                        delay={250}
+                        enableScrollUp={true}
+                    >
+                        <div className="max-w-4xl mx-auto text-center">
+                            <p className="text-lg text-amber-700 mb-6 leading-relaxed">
+                                We begin with a thorough understanding of your business, challenges, and goals, then develop customized strategies that align with your vision.
+                            </p>
+                            <p className="text-lg text-amber-700 leading-relaxed">
+                                Our collaborative approach ensures that you're involved every step of the way, from initial planning to final implementation and ongoing support.
+                            </p>
+                        </div>
+                    </AnimatedContent>
+                </div>
+            </section>
+
+            {/* Why Choose Us Section */}
+            <section className="py-24 sm:py-32 bg-gradient-to-b from-white via-amber-50/10 to-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <AnimatedContent
+                        distance={100}
+                        direction="vertical"
+                        reverse={false}
+                        initialOpacity={0}
+                        animateOpacity
+                        scale={1.0}
+                        threshold={0.1}
+                        delay={100}
+                        enableScrollUp={true}
+                    >
+                        <div className="text-center mb-16 sm:mb-20">
+                            <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-amber-900 mb-6 tracking-tight">
+                                <span className="bg-gradient-to-r from-amber-800 via-amber-600 to-yellow-600 bg-clip-text text-transparent">Why Choose</span> Us?
+                            </h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-amber-600 to-yellow-600 mx-auto mb-8"></div>
+                            <p className="text-xl sm:text-2xl lg:text-3xl text-amber-700/90 text-center mb-12 max-w-5xl mx-auto leading-relaxed font-light">
+                                Discover what sets Badger State Solutions apart as your ideal business partner.
+                            </p>
+                        </div>
+                    </AnimatedContent>
+
+                    <AnimatedContent
+                        distance={100}
+                        direction="vertical"
+                        reverse={false}
+                        initialOpacity={0}
+                        animateOpacity
+                        scale={1.0}
+                        threshold={0.1}
+                        delay={150}
                         enableScrollUp={true}
                     >
                         <div className="bg-gradient-to-r from-blue-100/60 to-blue-200/40 backdrop-blur-sm border border-blue-300/60 rounded-2xl p-10 lg:p-12">
