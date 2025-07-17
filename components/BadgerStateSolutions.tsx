@@ -675,67 +675,7 @@ const BadgerStateSolutions = () => {
                 </div>
             </section>
 
-            {/* Modern CTA Section */}
-            <section className="py-24 sm:py-32 bg-gradient-to-br from-amber-900 via-yellow-900 to-orange-900 text-white relative overflow-hidden">
-                <div className="absolute inset-0 mesh-gradient opacity-20"></div>
-                <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={100}
-                        enableScrollUp={true}
-                    >
-                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-8 sm:mb-10 tracking-tight leading-tight">
-                            Ready to{" "}
-                            <span className="bg-gradient-to-r from-yellow-300 via-amber-200 to-yellow-400 bg-clip-text text-transparent animate-gradient">Transform Your Business?</span>
-                        </h2>
-                    </AnimatedContent>
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={220}
-                        enableScrollUp={true}
-                    >
-                        <p className="text-xl sm:text-2xl lg:text-3xl text-amber-100/90 mb-12 sm:mb-14 lg:mb-16 max-w-4xl mx-auto leading-relaxed font-light">
-                            Partner with Badger State Solutions to unlock your organization's potential and achieve sustainable growth
-                        </p>
-                    </AnimatedContent>
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={160}
-                        enableScrollUp={true}
-                    >
-                        <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 justify-center">
-                            <button
-                                 className="group relative overflow-hidden bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-700 text-white px-10 sm:px-12 lg:px-16 py-4 sm:py-5 lg:py-6 rounded-2xl text-lg sm:text-xl lg:text-2xl font-bold hover:shadow-2xl hover:shadow-amber-500/30 hover:scale-105 transition-all duration-300 border border-amber-500/20 backdrop-blur-sm w-full sm:w-auto tracking-tight"
-                             >
-                                 <span className="relative z-10">🚀 Schedule Consultation</span>
-                                 <div className="absolute inset-0 bg-gradient-to-r from-yellow-600 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                             </button>
-                             <button className="group relative overflow-hidden bg-white/10 backdrop-blur-md text-white px-10 sm:px-12 lg:px-16 py-4 sm:py-5 lg:py-6 rounded-2xl text-lg sm:text-xl lg:text-2xl font-bold hover:shadow-2xl hover:shadow-white/10 hover:scale-105 transition-all duration-300 border border-white/20 hover:bg-white/20 w-full sm:w-auto tracking-tight">
-                                 <span className="relative z-10">📖 Learn More</span>
-                                 <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                             </button>
-                        </div>
-                    </AnimatedContent>
-                </div>
-            </section>
+
 
             {/* Simple Copyright Footer */}
             <footer className="bg-gradient-to-r from-amber-900 via-amber-800 to-amber-900 text-white py-8 lg:py-10">
