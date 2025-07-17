@@ -28,7 +28,7 @@ const BadgerStateSolutions = () => {
                     <div className="flex justify-between items-center py-4">
                         <div className="flex items-center space-x-2">
                             <Image
-                                src="/logo.png"
+                                src="/images/logo1.png"
                                 alt="Badger State Solutions Logo"
                                 width={40}
                                 height={40}
