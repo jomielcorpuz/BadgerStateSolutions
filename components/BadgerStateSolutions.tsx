@@ -233,15 +233,42 @@ const BadgerStateSolutions = () => {
                             </h4>
                             <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
                                 <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🎯</div>
+                                    <div className="flex justify-center items-center text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                                        <Image
+                                            src="/icons/strategy.png"
+                                            alt="Strategy Icon"
+                                            width={75}
+                                            height={75}
+                                            className="w-24 h-24">
+
+                                        </Image>
+                                    </div>
                                     <h5 className="text-xl lg:text-2xl font-bold text-blue-800 mb-2 tracking-tight">Streamline operations</h5>
                                 </div>
                                 <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">⚡</div>
+                                    <div className="flex justify-center items-center text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                                        <Image
+                                            src="/icons/operation.png"
+                                            alt="Performance Icon"
+                                            width={75}
+                                            height={75}
+                                            className="w-24 h-24">
+
+                                        </Image>
+                                    </div>
                                     <h5 className="text-xl lg:text-2xl font-bold text-blue-800 mb-2 tracking-tight">Improve performance</h5>
                                 </div>
-                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">📈</div>
+                                <div className="group justify-center items-center hover:-translate-y-1 transition-transform duration-300">
+                                    <div className="flex  justify-center items-center text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                                        <Image
+                                            src="/icons/rising.png"
+                                            alt="Growth Icon"
+                                            width={75}
+                                            height={75}
+                                            className="w-24 h-24 justify-center items-center">
+
+                                        </Image>
+                                    </div>
                                     <h5 className="text-xl lg:text-2xl font-bold text-blue-800 mb-2 tracking-tight">Achieve sustainable growth</h5>
                                 </div>
                             </div>
@@ -341,7 +368,7 @@ const BadgerStateSolutions = () => {
                                 <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
                                     <Image
                                         src="/icons/operation.png"
-                                        alt="Strategy Icon"
+                                        alt="Operation Icon"
                                         width={75}
                                         height={75}
                                         className="w-24 h-24">
