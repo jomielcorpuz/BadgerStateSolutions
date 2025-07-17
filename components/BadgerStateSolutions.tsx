@@ -122,7 +122,7 @@ const BadgerStateSolutions = () => {
                         delay={130}
                         enableScrollUp={true}
                     >
-                        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-blue-700/90 mb-8 sm:mb-10 md:mb-12 max-w-4xl mx-auto leading-relaxed font-light tracking-wide">
+                        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-blue-700/90 mb-8 sm:mb-10 md:mb-12 max-w-4xl mx-auto leading-relaxed ">
                             Partner with Badger State Solutions to unlock your organization&apos;s potential, streamline operations, and achieve lasting growth.
                         </p>
                     </AnimatedContent>
@@ -210,7 +210,7 @@ const BadgerStateSolutions = () => {
                             <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-blue-800 mb-8 tracking-tight">
                                 Who We Are
                             </h3>
-                            <p className="text-xl sm:text-2xl lg:text-3xl text-blue-700/90 text-center mb-12 max-w-5xl mx-auto leading-relaxed font-light">
+                            <p className="text-xl sm:text-2xl lg:text-3xl text-blue-700/90 text-center mb-12 max-w-5xl mx-auto ">
                                 At Badger State Solutions, we are a business management and consulting firm dedicated to helping organizations thrive.
                             </p>
                         </div>
@@ -286,11 +286,13 @@ const BadgerStateSolutions = () => {
                         delay={250}
                         enableScrollUp={true}
                     >
-                        <div className="max-w-4xl mx-auto text-center">
-                            <p className="text-lg text-blue-700 mb-6 leading-relaxed">
-                                With tailored strategies, operational support, and expert guidance, we help businesses across a wide range of industries enhance efficiency, navigate challenges, and scale with confidence.
+                        <div className="max-w-5xl mx-auto text-center">
+                            <p className="text-2xl text-blue-700 mb-6 leading-relaxed">
+                                With tailored strategies, operational support, and expert guidance, we help businesses across a wide range of industries enhance efficiency, navigate challenges, and scale with
+                                <br></br>
+                                confidence.
                             </p>
-                            <p className="text-lg text-blue-700 leading-relaxed">
+                            <p className="text-2xl text-blue-700 leading-relaxed">
                                 Whether you&apos;re a small startup or an established enterprise, Badger State Solutions provides the insight and support you need to succeed.
                             </p>
                         </div>
@@ -551,10 +553,10 @@ const BadgerStateSolutions = () => {
                         enableScrollUp={true}
                     >
                         <div className="max-w-4xl mx-auto text-center">
-                            <p className="text-lg text-amber-700 mb-6 leading-relaxed">
+                            <p className="text-2xl text-amber-700 mb-6 leading-relaxed">
                                 We begin with a thorough understanding of your business, challenges, and goals, then develop customized strategies that align with your vision.
                             </p>
-                            <p className="text-lg text-amber-700 leading-relaxed">
+                            <p className="text-2xl text-amber-700 leading-relaxed">
                                 Our collaborative approach ensures that you&apos;re involved every step of the way, from initial planning to final implementation and ongoing support.
                             </p>
                         </div>
@@ -599,23 +601,59 @@ const BadgerStateSolutions = () => {
                         enableScrollUp={true}
                     >
                         <div className="bg-gradient-to-r from-blue-100/60 to-blue-200/40 backdrop-blur-sm border border-blue-300/60 rounded-2xl p-10 lg:p-12">
-                            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-blue-900 mb-12 text-center tracking-tight">Why Choose Us?</h3>
+                            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold  text-amber-700/90 mb-12 text-center tracking-tight">Why Choose Us?</h3>
                             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
                                 <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🏆</div>
-                                    <p className="text-lg lg:text-xl text-blue-800 font-bold leading-relaxed">Industry experience across diverse sectors</p>
+                                    <div className="flex justify-center items-center text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                                        <Image
+                                            src="/icons/winner.png"
+                                            alt="Industry Experience Icon"
+                                            width={75}
+                                            height={75}
+                                            className="w-18 h-18">
+
+                                        </Image>
+                                    </div>
+                                    <p className="text-lg lg:text-xl  text-amber-700/90 font-bold leading-relaxed">Industry experience across diverse sectors</p>
                                 </div>
                                 <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🎯</div>
-                                    <p className="text-lg lg:text-xl text-blue-800 font-bold leading-relaxed">Customized strategies for your unique challenges</p>
+                                    <div className="flex justify-center items-center text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                                        <Image
+                                            src="/icons/strategy.png"
+                                            alt="Strategy Icon"
+                                            width={75}
+                                            height={75}
+                                            className="w-18 h-18">
+
+                                        </Image>
+                                    </div>
+                                    <p className="text-lg lg:text-xl  text-amber-700/90 font-bold leading-relaxed">Customized strategies for your unique challenges</p>
                                 </div>
                                 <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🤝</div>
-                                    <p className="text-lg lg:text-xl text-blue-800 font-bold leading-relaxed">Hands-on support, not just advice</p>
+                                    <div className="flex justify-center items-center text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                                        <Image
+                                            src="/icons/handshake.png"
+                                            alt="Support Icon"
+                                            width={75}
+                                            height={75}
+                                            className="w-18 h-18">
+
+                                        </Image>
+                                    </div>
+                                    <p className="text-lg lg:text-xl  text-amber-700/90 font-bold leading-relaxed">Hands-on support, not just advice</p>
                                 </div>
                                 <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">📈</div>
-                                    <p className="text-lg lg:text-xl text-blue-800 font-bold leading-relaxed">Proven track record of delivering results</p>
+                                    <div className="flex justify-center items-center text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                                        <Image
+                                            src="/icons/histogram.png"
+                                            alt="Track Record Icon"
+                                            width={75}
+                                            height={75}
+                                            className="w-18 h-18">
+
+                                        </Image>
+                                    </div>
+                                    <p className="text-lg lg:text-xl  text-amber-700/90 font-bold leading-relaxed">Proven track record of delivering results</p>
                                 </div>
                             </div>
                         </div>
@@ -665,7 +703,16 @@ const BadgerStateSolutions = () => {
                         <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-4xl mx-auto">
                             <div className="group bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-blue-300/70 transition-all duration-300 hover:-translate-y-2">
                                 <div className="text-center">
-                                    <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">📧</div>
+                                    <div className="flex justify-center items-center text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                                        <Image
+                                            src="/icons/mail.png"
+                                            alt="Mail Icon"
+                                            width={75}
+                                            height={75}
+                                            className="w-18 h-18">
+
+                                        </Image>
+                                    </div>
                                     <p className="text-xl lg:text-2xl font-bold text-blue-800 mb-4 tracking-tight">Email Us</p>
                                     <a href="mailto:info@badgerstatesolutions.com" className="text-lg lg:text-xl text-blue-600 hover:text-blue-700 transition-colors duration-300 font-medium break-all">
                                         info@badgerstatesolutions.com
@@ -674,7 +721,16 @@ const BadgerStateSolutions = () => {
                             </div>
                             <div className="group bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-blue-300/70 transition-all duration-300 hover:-translate-y-2">
                                 <div className="text-center">
-                                    <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🌐</div>
+                                    <div className="flex justify-center items-center text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                                        <Image
+                                            src="/icons/web.png"
+                                            alt="Mail Icon"
+                                            width={75}
+                                            height={75}
+                                            className="w-18 h-18">
+
+                                        </Image>
+                                    </div>
                                     <p className="text-xl lg:text-2xl font-bold text-blue-800 mb-4 tracking-tight">Visit Our Website</p>
                                     <a href="https://www.badgerstatesolutions.com" className="text-lg lg:text-xl text-blue-600 hover:text-blue-700 transition-colors duration-300 font-medium">
                                         www.badgerstatesolutions.com

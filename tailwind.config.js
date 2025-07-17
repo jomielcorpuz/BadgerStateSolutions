@@ -45,7 +45,6 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-inter)', 'var(--font-geist-sans)', 'sans-serif'],
         hero: ['var(--font-poppins)', 'system-ui', 'sans-serif'],
-        orpheus: ['var(--font-orpheus)', 'Georgia', 'Times New Roman', 'serif'],
         mono: ['var(--font-geist-mono)', 'monospace'],
       },
 
