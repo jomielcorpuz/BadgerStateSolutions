@@ -394,7 +394,7 @@ const BadgerStateSolutions = () => {
                             <div className="group bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-blue-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
                                 <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
                                     <Image
-                                        src="/icons/performance.png"
+                                        src="/icons/rising.png"
                                         alt="Performance Icon"
                                         width={75}
                                         height={75}
