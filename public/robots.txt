@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: www.badgerstatesolutions.com
+Host: https://www.badgerstatesolutions.com
 
 # Sitemaps
 Sitemap: https://www.badgerstatesolutions.com/sitemap.xml
