@@ -1,0 +1,43 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Badger body -->
+  <ellipse cx="60" cy="75" rx="35" ry="25" fill="#8B7355" stroke="#2D2D2D" stroke-width="3"/>
+  
+  <!-- Badger head -->
+  <ellipse cx="60" cy="45" rx="28" ry="22" fill="#2D2D2D" stroke="#1A1A1A" stroke-width="2"/>
+  
+  <!-- White stripe on face -->
+  <ellipse cx="60" cy="45" rx="8" ry="20" fill="#F5F1E8"/>
+  
+  <!-- Ears -->
+  <ellipse cx="45" cy="30" rx="8" ry="10" fill="#2D2D2D" stroke="#1A1A1A" stroke-width="2"/>
+  <ellipse cx="75" cy="30" rx="8" ry="10" fill="#2D2D2D" stroke="#1A1A1A" stroke-width="2"/>
+  <ellipse cx="45" cy="32" rx="4" ry="6" fill="#8B7355"/>
+  <ellipse cx="75" cy="32" rx="4" ry="6" fill="#8B7355"/>
+  
+  <!-- Eyes -->
+  <circle cx="52" cy="42" r="3" fill="#1A1A1A"/>
+  <circle cx="68" cy="42" r="3" fill="#1A1A1A"/>
+  <circle cx="53" cy="41" r="1" fill="#F5F1E8"/>
+  <circle cx="69" cy="41" r="1" fill="#F5F1E8"/>
+  
+  <!-- Nose -->
+  <ellipse cx="60" cy="50" rx="2" ry="1.5" fill="#1A1A1A"/>
+  
+  <!-- Arms -->
+  <ellipse cx="35" cy="65" rx="12" ry="8" fill="#8B7355" stroke="#2D2D2D" stroke-width="2"/>
+  <ellipse cx="85" cy="65" rx="12" ry="8" fill="#8B7355" stroke="#2D2D2D" stroke-width="2"/>
+  
+  <!-- Paws -->
+  <circle cx="30" cy="68" r="6" fill="#2D2D2D"/>
+  <circle cx="90" cy="68" r="6" fill="#2D2D2D"/>
+  
+  <!-- Tablet/Document -->
+  <rect x="75" y="55" width="25" height="18" rx="2" fill="#D4A574" stroke="#B8956A" stroke-width="2"/>
+  <rect x="77" y="57" width="21" height="2" fill="#B8956A"/>
+  <rect x="77" y="60" width="21" height="2" fill="#B8956A"/>
+  <rect x="77" y="63" width="21" height="2" fill="#B8956A"/>
+  <rect x="77" y="66" width="15" height="2" fill="#B8956A"/>
+  
+  <!-- Holding the tablet -->
+  <ellipse cx="88" cy="62" rx="3" ry="2" fill="#2D2D2D"/>
+</svg>
