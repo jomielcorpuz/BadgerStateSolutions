@@ -278,8 +278,8 @@ const BadgerStateSolutions = () => {
 
 
 
-            {/* Features Section */}
-            <section id="features" className="py-24 sm:py-32 bg-gradient-to-b from-white via-amber-50/20 to-white">
+            {/* Our Services Section */}
+            <section id="services" className="py-24 sm:py-32 bg-gradient-to-b from-white via-amber-50/10 to-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <AnimatedContent
                         distance={100}
@@ -294,85 +294,88 @@ const BadgerStateSolutions = () => {
                     >
                         <div className="text-center mb-16 sm:mb-20">
                             <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-amber-900 mb-6 tracking-tight">
-                                <span className="bg-gradient-to-r from-amber-800 via-amber-600 to-yellow-600 bg-clip-text text-transparent">Our</span> Features
+                                <span className="bg-gradient-to-r from-amber-800 via-amber-600 to-yellow-600 bg-clip-text text-transparent">Our</span> Services
                             </h2>
                             <div className="w-24 h-1 bg-gradient-to-r from-amber-600 to-yellow-600 mx-auto mb-8"></div>
-                        </div>
-                    </AnimatedContent>
-
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={150}
-                        enableScrollUp={true}
-                    >
-                        <div className="text-center mb-12">
-                            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-amber-800 mb-8 tracking-tight">
-                                What Sets Us Apart
-                            </h3>
-                            <p className="text-xl sm:text-2xl lg:text-3xl text-amber-700/90 text-center mb-12 max-w-5xl mx-auto leading-relaxed font-light">
-                                Discover the unique advantages that make Badger State Solutions your ideal business partner.
+                            <p className="text-xl sm:text-2xl lg:text-3xl text-amber-700/90 text-center mb-12 max-w-4xl mx-auto leading-relaxed font-light">
+                                We offer a range of solutions to help your business excel:
                             </p>
                         </div>
                     </AnimatedContent>
 
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={200}
-                        enableScrollUp={true}
-                    >
-                        <div className="bg-gradient-to-r from-amber-50/50 to-yellow-50/30 backdrop-blur-sm border border-amber-200/50 rounded-xl p-8 lg:p-12 mb-8">
-                            <h4 className="text-2xl lg:text-3xl font-bold text-amber-800 mb-8 lg:mb-10 text-center tracking-tight">
-                                Key Features:
-                            </h4>
-                            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🔍</div>
-                                    <h5 className="text-xl lg:text-2xl font-bold text-amber-800 mb-2 tracking-tight">Deep Analysis</h5>
-                                </div>
-                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">💡</div>
-                                    <h5 className="text-xl lg:text-2xl font-bold text-amber-800 mb-2 tracking-tight">Innovative Solutions</h5>
-                                </div>
-                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🎯</div>
-                                    <h5 className="text-xl lg:text-2xl font-bold text-amber-800 mb-2 tracking-tight">Targeted Results</h5>
-                                </div>
+                    <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-20">
+                        <AnimatedContent
+                            distance={100}
+                            direction="vertical"
+                            reverse={false}
+                            initialOpacity={0}
+                            animateOpacity
+                            scale={1.0}
+                            threshold={0.1}
+                            delay={150}
+                            enableScrollUp={true}
+                        >
+                            <div className="group bg-white/80 backdrop-blur-sm border border-amber-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-amber-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
+                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🎯</div>
+                                <h3 className="text-2xl lg:text-3xl font-bold text-amber-800 mb-6 tracking-tight">Strategy Development</h3>
+                                <p className="text-lg text-amber-700/90 leading-relaxed font-light">Crafting actionable plans aligned with your goals and market realities.</p>
                             </div>
-                        </div>
-                    </AnimatedContent>
+                        </AnimatedContent>
 
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={250}
-                        enableScrollUp={true}
-                    >
-                        <div className="max-w-4xl mx-auto text-center">
-                            <p className="text-lg text-amber-700 mb-6 leading-relaxed">
-                                Our comprehensive approach combines industry expertise with cutting-edge methodologies to deliver exceptional results for your business.
-                            </p>
-                            <p className="text-lg text-amber-700 leading-relaxed">
-                                From initial consultation to implementation and beyond, we're committed to your success every step of the way.
-                            </p>
-                        </div>
-                    </AnimatedContent>
+                        <AnimatedContent
+                            distance={100}
+                            direction="vertical"
+                            reverse={false}
+                            initialOpacity={0}
+                            animateOpacity
+                            scale={1.0}
+                            threshold={0.1}
+                            delay={200}
+                            enableScrollUp={true}
+                        >
+                            <div className="group bg-white/80 backdrop-blur-sm border border-amber-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-amber-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
+                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">⚡</div>
+                                <h3 className="text-2xl lg:text-3xl font-bold text-amber-800 mb-6 tracking-tight">Operational Excellence</h3>
+                                <p className="text-lg text-amber-700/90 leading-relaxed font-light">Identifying and eliminating inefficiencies to maximize productivity.</p>
+                            </div>
+                        </AnimatedContent>
+
+                        <AnimatedContent
+                            distance={100}
+                            direction="vertical"
+                            reverse={false}
+                            initialOpacity={0}
+                            animateOpacity
+                            scale={1.0}
+                            threshold={0.1}
+                            delay={250}
+                            enableScrollUp={true}
+                        >
+                            <div className="group bg-white/80 backdrop-blur-sm border border-amber-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-amber-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
+                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">📊</div>
+                                <h3 className="text-2xl lg:text-3xl font-bold text-amber-800 mb-6 tracking-tight">Performance Improvement</h3>
+                                <p className="text-lg text-amber-700/90 leading-relaxed font-light">Driving measurable results through analytics, innovation, and best practices.</p>
+                            </div>
+                        </AnimatedContent>
+
+                        <AnimatedContent
+                            distance={100}
+                            direction="vertical"
+                            reverse={false}
+                            initialOpacity={0}
+                            animateOpacity
+                            scale={1.0}
+                            threshold={0.1}
+                            delay={300}
+                            enableScrollUp={true}
+                        >
+                            <div className="group bg-white/80 backdrop-blur-sm border border-amber-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-amber-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
+                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🚀</div>
+                                <h3 className="text-2xl lg:text-3xl font-bold text-amber-800 mb-6 tracking-tight">Growth & Scaling Support</h3>
+                                <p className="text-lg text-amber-700/90 leading-relaxed font-light">Guiding your organization through periods of rapid growth or change.</p>
+                            </div>
+                        </AnimatedContent>
+                    </div>
                 </div>
             </section>
 
@@ -474,10 +477,8 @@ const BadgerStateSolutions = () => {
                 </div>
             </section>
 
-
-
-            {/* Our Services Section */}
-            <section id="services" className="py-24 sm:py-32 bg-gradient-to-b from-white via-amber-50/10 to-white">
+            {/* Why Choose Us Section */}
+            <section className="py-24 sm:py-32 bg-gradient-to-b from-white via-amber-50/10 to-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <AnimatedContent
                         distance={100}
@@ -492,90 +493,15 @@ const BadgerStateSolutions = () => {
                     >
                         <div className="text-center mb-16 sm:mb-20">
                             <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-amber-900 mb-6 tracking-tight">
-                                <span className="bg-gradient-to-r from-amber-800 via-amber-600 to-yellow-600 bg-clip-text text-transparent">Our</span> Services
+                                <span className="bg-gradient-to-r from-amber-800 via-amber-600 to-yellow-600 bg-clip-text text-transparent">Why Choose</span> Us?
                             </h2>
                             <div className="w-24 h-1 bg-gradient-to-r from-amber-600 to-yellow-600 mx-auto mb-8"></div>
-                            <p className="text-xl sm:text-2xl lg:text-3xl text-amber-700/90 text-center mb-12 max-w-4xl mx-auto leading-relaxed font-light">
-                                We offer a range of solutions to help your business excel:
+                            <p className="text-xl sm:text-2xl lg:text-3xl text-amber-700/90 text-center mb-12 max-w-5xl mx-auto leading-relaxed font-light">
+                                Discover what sets Badger State Solutions apart as your ideal business partner.
                             </p>
                         </div>
                     </AnimatedContent>
 
-                    <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-20">
-                        <AnimatedContent
-                            distance={100}
-                            direction="vertical"
-                            reverse={false}
-                            initialOpacity={0}
-                            animateOpacity
-                            scale={1.0}
-                            threshold={0.1}
-                            delay={150}
-                            enableScrollUp={true}
-                        >
-                            <div className="group bg-white/80 backdrop-blur-sm border border-amber-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-amber-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
-                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🎯</div>
-                                <h3 className="text-2xl lg:text-3xl font-bold text-amber-800 mb-6 tracking-tight">Strategy Development</h3>
-                                <p className="text-lg text-amber-700/90 leading-relaxed font-light">Crafting actionable plans aligned with your goals and market realities.</p>
-                            </div>
-                        </AnimatedContent>
-
-                        <AnimatedContent
-                            distance={100}
-                            direction="vertical"
-                            reverse={false}
-                            initialOpacity={0}
-                            animateOpacity
-                            scale={1.0}
-                            threshold={0.1}
-                            delay={200}
-                            enableScrollUp={true}
-                        >
-                            <div className="group bg-white/80 backdrop-blur-sm border border-amber-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-amber-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
-                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">⚡</div>
-                                <h3 className="text-2xl lg:text-3xl font-bold text-amber-800 mb-6 tracking-tight">Operational Excellence</h3>
-                                <p className="text-lg text-amber-700/90 leading-relaxed font-light">Identifying and eliminating inefficiencies to maximize productivity.</p>
-                            </div>
-                        </AnimatedContent>
-
-                        <AnimatedContent
-                            distance={100}
-                            direction="vertical"
-                            reverse={false}
-                            initialOpacity={0}
-                            animateOpacity
-                            scale={1.0}
-                            threshold={0.1}
-                            delay={250}
-                            enableScrollUp={true}
-                        >
-                            <div className="group bg-white/80 backdrop-blur-sm border border-amber-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-amber-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
-                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">📊</div>
-                                <h3 className="text-2xl lg:text-3xl font-bold text-amber-800 mb-6 tracking-tight">Performance Improvement</h3>
-                                <p className="text-lg text-amber-700/90 leading-relaxed font-light">Driving measurable results through analytics, innovation, and best practices.</p>
-                            </div>
-                        </AnimatedContent>
-
-                        <AnimatedContent
-                            distance={100}
-                            direction="vertical"
-                            reverse={false}
-                            initialOpacity={0}
-                            animateOpacity
-                            scale={1.0}
-                            threshold={0.1}
-                            delay={300}
-                            enableScrollUp={true}
-                        >
-                            <div className="group bg-white/80 backdrop-blur-sm border border-amber-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-amber-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
-                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🚀</div>
-                                <h3 className="text-2xl lg:text-3xl font-bold text-amber-800 mb-6 tracking-tight">Growth & Scaling Support</h3>
-                                <p className="text-lg text-amber-700/90 leading-relaxed font-light">Guiding your organization through periods of rapid growth or change.</p>
-                            </div>
-                        </AnimatedContent>
-                    </div>
-
-                    {/* Why Choose Us Section */}
                     <AnimatedContent
                         distance={100}
                         direction="vertical"
@@ -584,11 +510,10 @@ const BadgerStateSolutions = () => {
                         animateOpacity
                         scale={1.0}
                         threshold={0.1}
-                        delay={350}
+                        delay={150}
                         enableScrollUp={true}
                     >
-                        <div className="bg-gradient-to-r from-amber-100/60 to-yellow-100/40 backdrop-blur-sm border border-amber-300/60 rounded-2xl p-10 lg:p-12">
-                            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-amber-900 mb-12 text-center tracking-tight">Why Choose Us?</h3>
+                        <div className="bg-gradient-to-r from-amber-100/60 to-yellow-100/40 backdrop-blur-sm border border-amber-300/60 rounded-2xl p-10 lg:p-12 mb-12">
                             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
                                 <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
                                     <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🏆</div>
@@ -605,6 +530,41 @@ const BadgerStateSolutions = () => {
                                 <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
                                     <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">📈</div>
                                     <p className="text-lg lg:text-xl text-amber-800 font-bold leading-relaxed">Proven track record of delivering results</p>
+                                </div>
+                            </div>
+                        </div>
+                    </AnimatedContent>
+
+                    <AnimatedContent
+                        distance={100}
+                        direction="vertical"
+                        reverse={false}
+                        initialOpacity={0}
+                        animateOpacity
+                        scale={1.0}
+                        threshold={0.1}
+                        delay={200}
+                        enableScrollUp={true}
+                    >
+                        <div className="bg-gradient-to-r from-amber-50/50 to-yellow-50/30 backdrop-blur-sm border border-amber-200/50 rounded-xl p-8 lg:p-12">
+                            <h3 className="text-2xl lg:text-3xl font-bold text-amber-800 mb-8 lg:mb-10 text-center tracking-tight">
+                                Our Key Differentiators:
+                            </h3>
+                            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
+                                    <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🔍</div>
+                                    <h4 className="text-xl lg:text-2xl font-bold text-amber-800 mb-2 tracking-tight">Deep Analysis</h4>
+                                    <p className="text-base text-amber-700 leading-relaxed">Comprehensive assessment of your business landscape</p>
+                                </div>
+                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
+                                    <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">💡</div>
+                                    <h4 className="text-xl lg:text-2xl font-bold text-amber-800 mb-2 tracking-tight">Innovative Solutions</h4>
+                                    <p className="text-base text-amber-700 leading-relaxed">Creative approaches tailored to your specific needs</p>
+                                </div>
+                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
+                                    <div className="text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">🎯</div>
+                                    <h4 className="text-xl lg:text-2xl font-bold text-amber-800 mb-2 tracking-tight">Targeted Results</h4>
+                                    <p className="text-base text-amber-700 leading-relaxed">Measurable outcomes that drive real business value</p>
                                 </div>
                             </div>
                         </div>
