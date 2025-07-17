@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@layer base {
+  :root {
+    /* Saffron, White, and Green Color Scheme */
+    --background: 0 0% 100%; /* White background */
+    --foreground: 120 100% 15%; /* Dark green text */
+    --card: 0 0% 100%; /* White cards */
+    --card-foreground: 120 100% 15%; /* Dark green card text */
+    --popover: 0 0% 100%; /* White popover */
+    --popover-foreground: 120 100% 15%; /* Dark green popover text */
+    --primary: 35 100% 50%; /* Saffron primary */
+    --primary-foreground: 0 0% 100%; /* White text on saffron */
+    --secondary: 120 50% 85%; /* Light green secondary */
+    --secondary-foreground: 120 100% 15%; /* Dark green text on light green */
+    --muted: 120 30% 92%; /* Very light green muted */
+    --muted-foreground: 120 50% 35%; /* Medium green muted text */
+    --accent: 35 100% 60%; /* Lighter saffron accent */
+    --accent-foreground: 0 0% 100%; /* White text on saffron accent */
+    --destructive: 0 84.2% 60.2%; /* Red for destructive actions */
+    --destructive-foreground: 0 0% 98%; /* White text on red */
+    --border: 120 30% 85%; /* Light green border */
+    --input: 120 30% 90%; /* Very light green input background */
+    --ring: 35 100% 50%; /* Saffron focus ring */
+    --chart-1: 35 100% 50%; /* Saffron */
+    --chart-2: 120 60% 45%; /* Green */
+    --chart-3: 35 80% 65%; /* Light saffron */
+    --chart-4: 120 40% 60%; /* Medium green */
+    --chart-5: 35 60% 75%; /* Very light saffron */
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Dark mode with saffron, dark green, and off-white */
+    --background: 120 100% 5%; /* Very dark green background */
+    --foreground: 0 0% 95%; /* Off-white text */
+    --card: 120 50% 8%; /* Dark green cards */
+    --card-foreground: 0 0% 95%; /* Off-white card text */
+    --popover: 120 50% 8%; /* Dark green popover */
+    --popover-foreground: 0 0% 95%; /* Off-white popover text */
+    --primary: 35 100% 60%; /* Bright saffron primary */
+    --primary-foreground: 120 100% 5%; /* Dark green text on saffron */
+    --secondary: 120 50% 12%; /* Darker green secondary */
+    --secondary-foreground: 0 0% 95%; /* Off-white text on dark green */
+    --muted: 120 30% 15%; /* Dark muted green */
+    --muted-foreground: 120 20% 65%; /* Light green muted text */
+    --accent: 35 100% 70%; /* Lighter saffron accent */
+    --accent-foreground: 120 100% 5%; /* Dark green text on saffron accent */
+    --destructive: 0 62.8% 30.6%; /* Dark red for destructive actions */
+    --destructive-foreground: 0 0% 98%; /* White text on red */
+    --border: 120 30% 18%; /* Dark green border */
+    --input: 120 30% 15%; /* Dark green input background */
+    --ring: 35 100% 60%; /* Bright saffron focus ring */
+    --chart-1: 35 100% 60%; /* Bright saffron */
+    --chart-2: 120 60% 55%; /* Bright green */
+    --chart-3: 35 80% 75%; /* Light saffron */
+    --chart-4: 120 40% 70%; /* Light green */
+    --chart-5: 35 60% 85%; /* Very light saffron */
+  }
+}
+
+html {
+  overflow-y: scroll;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    font-family: var(--font-geist-sans);
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+  }
+}
