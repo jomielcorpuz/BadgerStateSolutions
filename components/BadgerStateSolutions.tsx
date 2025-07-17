@@ -1,10 +1,5 @@
 "use client";
-import React, { useState } from "react";
 import {
-    Mail,
-    Shield,
-    Zap,
-    Users,
     ArrowRight,
     Sparkles,
 } from "lucide-react";
@@ -128,7 +123,7 @@ const BadgerStateSolutions = () => {
                         enableScrollUp={true}
                     >
                         <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-blue-700/90 mb-8 sm:mb-10 md:mb-12 max-w-4xl mx-auto leading-relaxed font-light tracking-wide">
-                            Partner with Badger State Solutions to unlock your organization's potential, streamline operations, and achieve lasting growth.
+                            Partner with Badger State Solutions to unlock your organization&apos;s potential, streamline operations, and achieve lasting growth.
                         </p>
                     </AnimatedContent>
 
@@ -316,7 +311,16 @@ const BadgerStateSolutions = () => {
                             enableScrollUp={true}
                         >
                             <div className="group bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-blue-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
-                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🎯</div>
+                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <Image
+                                        src="/icons/strategy.png"
+                                        alt="Strategy Icon"
+                                        width={75}
+                                        height={75}
+                                        className="w-24 h-24">
+
+                                    </Image>
+                                </div>
                                 <h3 className="text-2xl lg:text-3xl font-bold text-blue-800 mb-6 tracking-tight">Strategy Development</h3>
                                 <p className="text-lg text-blue-700/90 leading-relaxed font-light">Crafting actionable plans aligned with your goals and market realities.</p>
                             </div>
@@ -334,7 +338,16 @@ const BadgerStateSolutions = () => {
                             enableScrollUp={true}
                         >
                             <div className="group bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-blue-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
-                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">⚡</div>
+                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <Image
+                                        src="/icons/operation.png"
+                                        alt="Strategy Icon"
+                                        width={75}
+                                        height={75}
+                                        className="w-24 h-24">
+
+                                    </Image>
+                                </div>
                                 <h3 className="text-2xl lg:text-3xl font-bold text-blue-800 mb-6 tracking-tight">Operational Excellence</h3>
                                 <p className="text-lg text-blue-700/90 leading-relaxed font-light">Identifying and eliminating inefficiencies to maximize productivity.</p>
                             </div>
@@ -352,7 +365,16 @@ const BadgerStateSolutions = () => {
                             enableScrollUp={true}
                         >
                             <div className="group bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-blue-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
-                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">📊</div>
+                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <Image
+                                        src="/icons/performance.png"
+                                        alt="Performance Icon"
+                                        width={75}
+                                        height={75}
+                                        className="w-24 h-24">
+
+                                    </Image>
+                                </div>
                                 <h3 className="text-2xl lg:text-3xl font-bold text-blue-800 mb-6 tracking-tight">Performance Improvement</h3>
                                 <p className="text-lg text-blue-700/90 leading-relaxed font-light">Driving measurable results through analytics, innovation, and best practices.</p>
                             </div>
@@ -370,7 +392,16 @@ const BadgerStateSolutions = () => {
                             enableScrollUp={true}
                         >
                             <div className="group bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-blue-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
-                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🚀</div>
+                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <Image
+                                        src="/icons/growth.png"
+                                        alt="Growth Icon"
+                                        width={75}
+                                        height={75}
+                                        className="w-24 h-24">
+
+                                    </Image>
+                                </div>
                                 <h3 className="text-2xl lg:text-3xl font-bold text-blue-800 mb-6 tracking-tight">Growth & Scaling Support</h3>
                                 <p className="text-lg text-blue-700/90 leading-relaxed font-light">Guiding your organization through periods of rapid growth or change.</p>
                             </div>
@@ -561,7 +592,7 @@ const BadgerStateSolutions = () => {
                                 Ready to take your business to the next level?
                             </p>
                             <p className="text-lg sm:text-xl lg:text-2xl text-blue-700/80 mb-12 font-light">
-                                We'd love to hear from you!
+                                We&apos;d love to hear from you!
                             </p>
                         </div>
                     </AnimatedContent>
@@ -633,7 +664,7 @@ const BadgerStateSolutions = () => {
                         enableScrollUp={true}
                     >
                         <p className="text-xl sm:text-2xl lg:text-3xl text-blue-100/90 mb-12 sm:mb-14 lg:mb-16 max-w-4xl mx-auto leading-relaxed font-light">
-                            Partner with Badger State Solutions to unlock your organization's potential and achieve sustainable growth
+                            Partner with Badger State Solutions to unlock your organization&apos;s potential and achieve sustainable growth
                         </p>
                     </AnimatedContent>
                     <AnimatedContent
