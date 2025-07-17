@@ -264,7 +264,7 @@ const BadgerStateSolutions = () => {
                                 With tailored strategies, operational support, and expert guidance, we help businesses across a wide range of industries enhance efficiency, navigate challenges, and scale with confidence.
                             </p>
                             <p className="text-lg text-blue-700 leading-relaxed">
-                                Whether you're a small startup or an established enterprise, Badger State Solutions provides the insight and support you need to succeed.
+                                Whether you&apos;re a small startup or an established enterprise, Badger State Solutions provides the insight and support you need to succeed.
                             </p>
                         </div>
                     </AnimatedContent>
@@ -501,7 +501,7 @@ const BadgerStateSolutions = () => {
                                 We begin with a thorough understanding of your business, challenges, and goals, then develop customized strategies that align with your vision.
                             </p>
                             <p className="text-lg text-amber-700 leading-relaxed">
-                                Our collaborative approach ensures that you're involved every step of the way, from initial planning to final implementation and ongoing support.
+                                Our collaborative approach ensures that you&apos;re involved every step of the way, from initial planning to final implementation and ongoing support.
                             </p>
                         </div>
                     </AnimatedContent>
