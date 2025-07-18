@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 // Animation component for scroll-triggered animations
 interface AnimatedContentProps {
@@ -53,13 +53,14 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
             }
         );
 
-        if (elementRef.current) {
-            observer.observe(elementRef.current);
+        const currentElement = elementRef.current;
+        if (currentElement) {
+            observer.observe(currentElement);
         }
 
         return () => {
-            if (elementRef.current) {
-                observer.unobserve(elementRef.current);
+            if (currentElement) {
+                observer.unobserve(currentElement);
             }
         };
     }, [threshold, delay, hasAnimated, enableScrollUp]);
@@ -92,15 +93,25 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
 
 const BadgerStateSolutions: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isHeaderDropdownOpen, setIsHeaderDropdownOpen] = useState(false);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    const handleDropdownClick = () => {
+        setIsDropdownOpen(false);
+    };
+
+    const handleHeaderDropdownClick = () => {
+        setIsHeaderDropdownOpen(!isHeaderDropdownOpen);
+    };
+
     return (
         <div className="min-h-screen bg-slate-50">
-            {/* Header - Arc.net inspired minimal design */}
-            <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/50">
+            {/* Header - Modern sticky design */}
+            <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/50 shadow-sm">
                 <div className="max-w-7xl mx-auto px-6 lg:px-8">
                     <div className="flex justify-between items-center py-4 lg:py-5">
                         <div className="flex items-center space-x-3">
@@ -114,37 +125,79 @@ const BadgerStateSolutions: React.FC = () => {
                                 />
                             </div>
                             <div>
-                                <h1 className="text-lg lg:text-xl font-bold text-slate-900 tracking-tight">
+                                <h1 className="text-lg lg:text-xl font-bold text-slate-900 tracking-tight group-hover:text-indigo-600 transition-colors duration-300">
                                     Badger State Solutions
                                 </h1>
                             </div>
                         </div>
 
                         {/* Desktop Navigation */}
-                        <nav className="hidden md:flex space-x-8">
-                            <a href="#about" className="text-slate-600 hover:text-slate-900 font-medium transition-colors duration-200">
+                        <nav className="hidden md:flex items-center space-x-1">
+                            <a href="#about" className="px-4 py-2 text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all duration-200 font-medium relative group">
                                 About
+                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-300"></span>
                             </a>
-                            <a href="#services" className="text-slate-600 hover:text-slate-900 font-medium transition-colors duration-200">
+                            <a href="#services" className="px-4 py-2 text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all duration-200 font-medium relative group">
                                 Services
+                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-300"></span>
                             </a>
-                            <a href="#approach" className="text-slate-600 hover:text-slate-900 font-medium transition-colors duration-200">
+                            <a href="#approach" className="px-4 py-2 text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all duration-200 font-medium relative group">
                                 Approach
+                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-300"></span>
                             </a>
-                            <a href="#contact" className="bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors duration-200 font-medium">
-                                Get Started
-                            </a>
+                            <div className="relative">
+                                <button
+                                    onClick={handleHeaderDropdownClick}
+                                    className="flex items-center space-x-1 px-4 py-2 text-slate-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all duration-200 font-medium relative group"
+                                >
+                                    <span>Email Us</span>
+                                    <ChevronDownIcon className={`w-4 h-4 transition-transform duration-200 ${isHeaderDropdownOpen ? 'rotate-180' : ''}`} />
+                                    <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-300"></span>
+                                </button>
+                                {isHeaderDropdownOpen && (
+                                    <div className="absolute top-full left-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-slate-200 z-50 transform transition-all duration-300">
+                                        <div className="p-2">
+                                            <a
+                                                href="https://mail.google.com/mail/?view=cm&fs=1&to=info@badgerstatesolutions.com"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-3 px-4 py-3 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-all duration-200 group/item"
+                                                onClick={() => setIsHeaderDropdownOpen(false)}
+                                            >
+                                                <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-yellow-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">G</div>
+                                                <span className="font-medium">Gmail</span>
+                                                <svg className="w-4 h-4 ml-auto opacity-0 group-hover/item:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                </svg>
+                                            </a>
+                                            <a
+                                                href="https://outlook.live.com/mail/0/deeplink/compose?to=info@badgerstatesolutions.com"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-3 px-4 py-3 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-all duration-200 group/item"
+                                                onClick={() => setIsHeaderDropdownOpen(false)}
+                                            >
+                                                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center text-white font-bold text-sm">O</div>
+                                                <span className="font-medium">Outlook</span>
+                                                <svg className="w-4 h-4 ml-auto opacity-0 group-hover/item:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         </nav>
 
                         {/* Mobile Menu Button */}
                         <button
                             onClick={toggleMenu}
-                            className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors duration-200"
+                            className="md:hidden p-2 rounded-lg hover:bg-indigo-50 hover:border-indigo-200 border border-transparent transition-all duration-200 group"
                         >
                             <div className="w-5 h-5 flex flex-col justify-center items-center">
-                                <span className={`block w-4 h-0.5 bg-slate-700 transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-0.5' : ''}`}></span>
-                                <span className={`block w-4 h-0.5 bg-slate-700 transition-all duration-300 mt-1 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-                                <span className={`block w-4 h-0.5 bg-slate-700 transition-all duration-300 mt-1 ${isMenuOpen ? '-rotate-45 -translate-y-0.5' : ''}`}></span>
+                                <span className={`block w-4 h-0.5 bg-slate-700 group-hover:bg-indigo-600 transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-0.5' : ''}`}></span>
+                                <span className={`block w-4 h-0.5 bg-slate-700 group-hover:bg-indigo-600 transition-all duration-300 mt-1 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+                                <span className={`block w-4 h-0.5 bg-slate-700 group-hover:bg-indigo-600 transition-all duration-300 mt-1 ${isMenuOpen ? '-rotate-45 -translate-y-0.5' : ''}`}></span>
                             </div>
                         </button>
                     </div>
@@ -153,18 +206,24 @@ const BadgerStateSolutions: React.FC = () => {
                     {isMenuOpen && (
                         <nav className="md:hidden pb-6 border-t border-slate-200/50 pt-6">
                             <div className="flex flex-col space-y-4">
-                                <a href="#about" className="text-slate-600 hover:text-slate-900 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
-                                    About
-                                </a>
-                                <a href="#services" className="text-slate-600 hover:text-slate-900 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
-                                    Services
-                                </a>
-                                <a href="#approach" className="text-slate-600 hover:text-slate-900 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
-                                    Approach
-                                </a>
-                                <a href="#contact" className="bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors duration-200 font-medium text-center" onClick={() => setIsMenuOpen(false)}>
-                                    Get Started
-                                </a>
+                                <div className="flex flex-col space-y-3">
+                                    <a href="#about" className="text-slate-700 hover:text-indigo-600 transition-colors duration-200 font-medium py-2" onClick={() => setIsMenuOpen(false)}>About</a>
+                                    <a href="#services" className="text-slate-700 hover:text-indigo-600 transition-colors duration-200 font-medium py-2" onClick={() => setIsMenuOpen(false)}>Services</a>
+                                    <a href="#approach" className="text-slate-700 hover:text-indigo-600 transition-colors duration-200 font-medium py-2" onClick={() => setIsMenuOpen(false)}>Approach</a>
+                                </div>
+                                <div className="space-y-3 border-t border-slate-200 pt-4">
+                                    <div className="text-slate-600 font-medium text-sm">Choose your email client:</div>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@badgerstatesolutions.com" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-4 bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md hover:border-blue-300 transition-all duration-200" onClick={() => setIsMenuOpen(false)}>
+                                            <div className="w-10 h-10 bg-gradient-to-r from-red-500 to-yellow-500 rounded-lg flex items-center justify-center text-white font-bold">G</div>
+                                            <span className="text-sm font-medium text-slate-700">Gmail</span>
+                                        </a>
+                                        <a href="https://outlook.live.com/mail/0/deeplink/compose?to=info@badgerstatesolutions.com" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 p-4 bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md hover:border-blue-300 transition-all duration-200" onClick={() => setIsMenuOpen(false)}>
+                                            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center text-white font-bold">O</div>
+                                            <span className="text-sm font-medium text-slate-700">Outlook</span>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </nav>
                     )}
@@ -172,7 +231,7 @@ const BadgerStateSolutions: React.FC = () => {
             </header>
 
             {/* Hero Section - Arc.net inspired bold design */}
-            <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900">
+            <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 pt-16 lg:pt-20">
                 {/* Animated Background Grid */}
                 <div className="absolute inset-0 opacity-20">
                     <div className="absolute inset-0" style={{
@@ -203,10 +262,9 @@ const BadgerStateSolutions: React.FC = () => {
                         threshold={0.1}
                         delay={200}
                     >
-                        <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white mb-8 tracking-tight leading-[0.9]">
-                            Business
-                            <br />
-                            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold text-white mb-10 tracking-[-0.02em] leading-[0.85] antialiased">
+                            <span className="block font-light text-white/90 mb-2">Business</span>
+                            <span className="block bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 bg-clip-text text-transparent font-black tracking-[-0.04em]">
                                 Transformed
                             </span>
                         </h1>
@@ -222,31 +280,13 @@ const BadgerStateSolutions: React.FC = () => {
                         threshold={0.1}
                         delay={400}
                     >
-                        <p className="text-xl sm:text-2xl lg:text-3xl text-slate-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
-                            We don&apos;t just advise—we transform. Partner with us to unlock exponential growth,
+                        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-slate-200/90 mb-16 max-w-5xl mx-auto leading-[1.4] font-normal tracking-[-0.01em] antialiased">
+                            We don&apos;t just advise—we <em className="font-medium text-white not-italic">transform</em>. Partner with us to unlock exponential growth,
                             streamline operations, and build the future your business deserves.
                         </p>
                     </AnimatedContent>
 
-                    <AnimatedContent
-                        distance={60}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={600}
-                    >
-                        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mb-16">
-                            <button className="group relative overflow-hidden bg-white text-slate-900 px-8 lg:px-12 py-4 lg:py-5 rounded-xl text-lg lg:text-xl font-bold hover:shadow-2xl hover:shadow-white/20 hover:scale-105 transition-all duration-300">
-                                <span className="relative z-10">Start Your Transformation →</span>
-                            </button>
-                            <button className="group relative overflow-hidden bg-white/10 backdrop-blur-md text-white px-8 lg:px-12 py-4 lg:py-5 rounded-xl text-lg lg:text-xl font-medium hover:bg-white/20 transition-all duration-300 border border-white/20">
-                                <span className="relative z-10">See Our Work</span>
-                            </button>
-                        </div>
-                    </AnimatedContent>
+
 
                     <AnimatedContent
                         distance={40}
@@ -258,18 +298,18 @@ const BadgerStateSolutions: React.FC = () => {
                         threshold={0.1}
                         delay={800}
                     >
-                        <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto text-slate-300">
-                            <div className="text-center">
-                                <div className="text-3xl lg:text-4xl font-black text-white mb-2">500+</div>
-                                <div className="text-sm lg:text-base font-medium">Businesses Transformed</div>
+                        <div className="grid grid-cols-3 gap-8 lg:gap-12 max-w-4xl mx-auto text-slate-200/80">
+                            <div className="text-center group">
+                                <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 tracking-[-0.02em] antialiased">Proven<br></br> Results</div>
+                                <div className="text-sm lg:text-base font-medium text-slate-300/90 tracking-wide uppercase">Businesses Transformed</div>
                             </div>
                             <div className="text-center">
-                                <div className="text-3xl lg:text-4xl font-black text-white mb-2">$50M+</div>
-                                <div className="text-sm lg:text-base font-medium">Revenue Generated</div>
+                                <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 tracking-[-0.02em] antialiased">Growth<br></br> Delivered</div>
+                                <div className="text-sm lg:text-base font-medium text-slate-300/90 tracking-wide uppercase">Revenue & Results</div>
                             </div>
                             <div className="text-center">
-                                <div className="text-3xl lg:text-4xl font-black text-white mb-2">15+</div>
-                                <div className="text-sm lg:text-base font-medium">Years Leading</div>
+                                <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 tracking-[-0.02em] antialiased">Trusted<br></br> Partners</div>
+                                <div className="text-sm lg:text-base font-medium text-slate-300/90 tracking-wide uppercase">Leading with Insight</div>
                             </div>
                         </div>
                     </AnimatedContent>
@@ -299,15 +339,15 @@ const BadgerStateSolutions: React.FC = () => {
                     >
                         <div className="text-center mb-16 lg:mb-20">
                             <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tight">
-                                Who We <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Are</span>
+                                About <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Us</span>
                             </h2>
                             <p className="text-xl sm:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed font-light">
-                                We're not just consultants—we're transformation architects who turn ambitious visions into measurable results.
+                                Transforming businesses through strategic innovation and operational excellence.
                             </p>
                         </div>
                     </AnimatedContent>
 
-                    <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                         <AnimatedContent
                             distance={60}
                             direction="vertical"
@@ -319,16 +359,14 @@ const BadgerStateSolutions: React.FC = () => {
                             delay={150}
                             enableScrollUp={true}
                         >
-                            <div className="group p-8 lg:p-10 rounded-2xl bg-gradient-to-br from-slate-50 to-indigo-50/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-100 text-center h-full">
-                                <div className="w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            <div className="group p-8 rounded-2xl bg-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-200/50 h-full">
+                                <div className="w-12 h-12 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                                     </svg>
                                 </div>
-                                <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4">Our Mission</h3>
-                                <p className="text-lg text-slate-600 leading-relaxed">
-                                    Empower businesses to achieve exponential growth through strategic innovation, operational excellence, and data-driven decision making.
-                                </p>
+                                <h3 className="text-xl font-bold text-slate-900 mb-4">Our Mission</h3>
+                                <p className="text-slate-600 leading-relaxed">To empower businesses with transformative strategies that drive sustainable growth, operational efficiency, and market leadership.</p>
                             </div>
                         </AnimatedContent>
 
@@ -343,17 +381,15 @@ const BadgerStateSolutions: React.FC = () => {
                             delay={200}
                             enableScrollUp={true}
                         >
-                            <div className="group p-8 lg:p-10 rounded-2xl bg-gradient-to-br from-slate-50 to-purple-50/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-100 text-center h-full">
-                                <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="group p-8 rounded-2xl bg-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-200/50 h-full">
+                                <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                     </svg>
                                 </div>
-                                <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4">Our Vision</h3>
-                                <p className="text-lg text-slate-600 leading-relaxed">
-                                    To be the catalyst that transforms ambitious businesses into industry-defining leaders of tomorrow.
-                                </p>
+                                <h3 className="text-xl font-bold text-slate-900 mb-4">Our Vision</h3>
+                                <p className="text-slate-600 leading-relaxed">To be the catalyst that transforms ambitious businesses into industry leaders through innovative solutions and strategic excellence.</p>
                             </div>
                         </AnimatedContent>
 
@@ -368,24 +404,14 @@ const BadgerStateSolutions: React.FC = () => {
                             delay={250}
                             enableScrollUp={true}
                         >
-                            <div className="group p-8 lg:p-10 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-700 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-center text-white h-full relative overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent"></div>
-                                <div className="relative z-10">
-                                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                                        </svg>
-                                    </div>
-                                    <div className="text-4xl lg:text-5xl font-black mb-2 text-white">15+</div>
-                                    <h3 className="text-2xl lg:text-3xl font-bold mb-4">Years Leading</h3>
-                                    <p className="text-lg opacity-90 leading-relaxed">
-                                        Business Transformation Excellence
-                                    </p>
+                            <div className="group p-8 rounded-2xl bg-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-200/50 h-full">
+                                <div className="w-12 h-12 bg-gradient-to-br from-pink-600 to-rose-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                                    </svg>
                                 </div>
-                                {/* Floating geometric elements */}
-                                <div className="absolute top-4 right-4 w-8 h-8 bg-white/10 rounded-lg rotate-12 animate-pulse backdrop-blur-sm"></div>
-                                <div className="absolute bottom-4 left-4 w-6 h-6 bg-white/10 rounded-md -rotate-12 animate-pulse delay-1000 backdrop-blur-sm"></div>
-                                <div className="absolute top-1/2 right-4 w-4 h-4 bg-white/10 rounded-full animate-pulse delay-500 backdrop-blur-sm"></div>
+                                <h3 className="text-xl font-bold text-slate-900 mb-4">Our Experience</h3>
+                                <p className="text-slate-600 leading-relaxed">With over 15 years of proven expertise, we've successfully transformed 500+ businesses across diverse industries.</p>
                             </div>
                         </AnimatedContent>
                     </div>
@@ -533,49 +559,67 @@ const BadgerStateSolutions: React.FC = () => {
                         </div>
                     </AnimatedContent>
 
-                    <AnimatedContent
-                        distance={60}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={200}
-                        enableScrollUp={true}
-                    >
-                        <div className="grid md:grid-cols-3 gap-8 lg:gap-16">
-                            <div className="text-center group">
-                                <div className="w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                                    <span className="text-white font-black text-xl">1</span>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                        <AnimatedContent
+                            distance={60}
+                            direction="vertical"
+                            reverse={false}
+                            initialOpacity={0}
+                            animateOpacity
+                            scale={1.0}
+                            threshold={0.1}
+                            delay={150}
+                            enableScrollUp={true}
+                        >
+                            <div className="group p-8 rounded-2xl bg-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-200/50 h-full">
+                                <div className="w-12 h-12 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <span className="text-white font-black text-lg">1</span>
                                 </div>
-                                <h3 className="text-2xl font-bold text-slate-900 mb-4">Discover & Analyze</h3>
-                                <p className="text-slate-600 leading-relaxed">
-                                    Deep dive into your business to understand challenges, opportunities, and untapped potential.
-                                </p>
+                                <h3 className="text-xl font-bold text-slate-900 mb-4">Discover & Analyze</h3>
+                                <p className="text-slate-600 leading-relaxed">Deep dive into your business to understand challenges, opportunities, and untapped potential.</p>
                             </div>
+                        </AnimatedContent>
 
-                            <div className="text-center group">
-                                <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                                    <span className="text-white font-black text-xl">2</span>
+                        <AnimatedContent
+                            distance={60}
+                            direction="vertical"
+                            reverse={false}
+                            initialOpacity={0}
+                            animateOpacity
+                            scale={1.0}
+                            threshold={0.1}
+                            delay={200}
+                            enableScrollUp={true}
+                        >
+                            <div className="group p-8 rounded-2xl bg-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-200/50 h-full">
+                                <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <span className="text-white font-black text-lg">2</span>
                                 </div>
-                                <h3 className="text-2xl font-bold text-slate-900 mb-4">Design & Strategize</h3>
-                                <p className="text-slate-600 leading-relaxed">
-                                    Create customized solutions and strategic roadmaps tailored to your specific goals and market position.
-                                </p>
+                                <h3 className="text-xl font-bold text-slate-900 mb-4">Design & Strategize</h3>
+                                <p className="text-slate-600 leading-relaxed">Create customized solutions and strategic roadmaps tailored to your specific goals and market position.</p>
                             </div>
+                        </AnimatedContent>
 
-                            <div className="text-center group">
-                                <div className="w-16 h-16 bg-gradient-to-br from-pink-600 to-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                                    <span className="text-white font-black text-xl">3</span>
+                        <AnimatedContent
+                            distance={60}
+                            direction="vertical"
+                            reverse={false}
+                            initialOpacity={0}
+                            animateOpacity
+                            scale={1.0}
+                            threshold={0.1}
+                            delay={250}
+                            enableScrollUp={true}
+                        >
+                            <div className="group p-8 rounded-2xl bg-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-200/50 h-full">
+                                <div className="w-12 h-12 bg-gradient-to-br from-pink-600 to-rose-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <span className="text-white font-black text-lg">3</span>
                                 </div>
-                                <h3 className="text-2xl font-bold text-slate-900 mb-4">Deploy & Optimize</h3>
-                                <p className="text-slate-600 leading-relaxed">
-                                    Implement solutions with hands-on support and continuously optimize for maximum impact and ROI.
-                                </p>
+                                <h3 className="text-xl font-bold text-slate-900 mb-4">Deploy & Optimize</h3>
+                                <p className="text-slate-600 leading-relaxed">Implement solutions with hands-on support and continuously optimize for maximum impact and ROI.</p>
                             </div>
-                        </div>
-                    </AnimatedContent>
+                        </AnimatedContent>
+                    </div>
                 </div>
             </section>
 
@@ -598,48 +642,12 @@ const BadgerStateSolutions: React.FC = () => {
                                 Ready to <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Transform?</span>
                             </h2>
                             <p className="text-xl sm:text-2xl text-slate-300 mb-12 leading-relaxed font-light">
-                                Let's discuss how we can accelerate your business growth and unlock your organization's full potential.
+                                Let&apos;s discuss how we can accelerate your business growth and unlock your organization&apos;s full potential.
                             </p>
                         </div>
                     </AnimatedContent>
 
-                    <AnimatedContent
-                        distance={60}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={200}
-                        enableScrollUp={true}
-                    >
-                        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mb-12">
-                            <div className="group p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 hover:-translate-y-1">
-                                <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-bold text-white mb-2">Email Us</h3>
-                                <a href="mailto:info@badgerstatesolutions.com" className="text-slate-300 hover:text-white transition-colors duration-200">
-                                    info@badgerstatesolutions.com
-                                </a>
-                            </div>
 
-                            <div className="group p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 hover:-translate-y-1">
-                                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-bold text-white mb-2">Visit Our Website</h3>
-                                <a href="https://www.badgerstatesolutions.com" className="text-slate-300 hover:text-white transition-colors duration-200">
-                                    www.badgerstatesolutions.com
-                                </a>
-                            </div>
-                        </div>
-                    </AnimatedContent>
 
                     <AnimatedContent
                         distance={40}
@@ -652,9 +660,34 @@ const BadgerStateSolutions: React.FC = () => {
                         delay={300}
                         enableScrollUp={true}
                     >
-                        <button className="bg-white text-slate-900 px-12 py-5 rounded-xl text-xl font-bold hover:shadow-2xl hover:shadow-white/20 hover:scale-105 transition-all duration-300">
-                            Schedule Your Free Consultation →
-                        </button>
+                        <div className="flex justify-center">
+                            <div className="relative group" onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)}>
+                                <button className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white px-12 py-5 rounded-xl text-xl font-bold hover:shadow-2xl hover:shadow-purple-500/30 hover:scale-105 transition-all duration-300 flex items-center gap-3 border border-white/20">
+                                    Email Us for Free Consultation
+                                    <svg className={`w-5 h-5 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                                <div className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-200 transition-all duration-500 z-50 ${isDropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'}`}>
+                                    <div className="p-2">
+                                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@badgerstatesolutions.com&su=Free%20Consultation%20Request" target="_blank" rel="noopener noreferrer" onClick={handleDropdownClick} className="flex items-center gap-3 px-4 py-3 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-all duration-200 group/item">
+                                            <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-yellow-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">G</div>
+                                            <span className="font-medium">Gmail</span>
+                                            <svg className="w-4 h-4 ml-auto opacity-0 group-hover/item:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                            </svg>
+                                        </a>
+                                        <a href="https://outlook.live.com/mail/0/deeplink/compose?to=info@badgerstatesolutions.com&subject=Free%20Consultation%20Request" target="_blank" rel="noopener noreferrer" onClick={handleDropdownClick} className="flex items-center gap-3 px-4 py-3 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-all duration-200 group/item">
+                                            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center text-white font-bold text-sm">O</div>
+                                            <span className="font-medium">Outlook</span>
+                                            <svg className="w-4 h-4 ml-auto opacity-0 group-hover/item:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </AnimatedContent>
                 </div>
             </section>
