@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 
 // Animation component for scroll-triggered animations
 interface AnimatedContentProps {
@@ -698,7 +699,13 @@ const BadgerStateSolutions: React.FC = () => {
                     <div className="flex flex-col md:flex-row justify-between items-center">
                         <div className="flex items-center space-x-3 mb-6 md:mb-0">
                             <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-lg flex items-center justify-center">
-                                <span className="text-white font-black text-base">BS</span>
+                                <Image
+                                    src="logo.svg"
+                                    alt="Badger State Solutions Logo"
+                                    width={45}
+                                    height={45}
+                                    className="mt-2"
+                                />
                             </div>
                             <span className="text-xl font-bold">Badger State Solutions</span>
                         </div>
