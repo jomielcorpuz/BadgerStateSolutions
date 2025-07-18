@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import { ChevronDown } from 'lucide-react';
 
 // Animation component for scroll-triggered animations
 interface AnimatedContentProps {
@@ -318,9 +319,7 @@ const BadgerStateSolutions: React.FC = () => {
 
                 {/* Scroll Indicator */}
                 <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-                    <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-                        <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
-                    </div>
+                    <ChevronDown className="w-10 h-10 text-white/70 drop-shadow-lg" strokeWidth={2.5} />
                 </div>
             </section>
 
