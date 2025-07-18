@@ -412,7 +412,7 @@ const BadgerStateSolutions: React.FC = () => {
                                     </svg>
                                 </div>
                                 <h3 className="text-xl font-bold text-slate-900 mb-4">Our Experience</h3>
-                                <p className="text-slate-600 leading-relaxed">With over 15 years of proven expertise, we've successfully transformed 500+ businesses across diverse industries.</p>
+                                <p className="text-slate-600 leading-relaxed">With over 15 years of proven expertise, we&apos;ve successfully transformed 500+ businesses across diverse industries.</p>
                             </div>
                         </AnimatedContent>
                     </div>
