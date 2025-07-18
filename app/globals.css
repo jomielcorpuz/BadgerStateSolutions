@@ -35,6 +35,27 @@
     }
   }
   
+  @keyframes gradient-move {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .moving-gradient {
+    background: linear-gradient(-45deg, #a855f7, #ec4899, #3b82f6, #8b5cf6, #a855f7);
+    background-size: 400% 400%;
+    animation: gradient-move 4s ease-in-out infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
   /* Luxury Hero Typography */
   .luxury-hero {
     text-shadow: var(--luxury-text-shadow-xl);
