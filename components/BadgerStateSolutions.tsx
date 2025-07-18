@@ -1,312 +1,287 @@
-"use client";
-import {
-    ArrowRight,
-    Sparkles,
-} from "lucide-react";
-import Image from "next/image";
-import AnimatedContent from "@/components/ui/animatedcontent";
-import { AuroraText } from "@/components/magicui/aurora-text";
+'use client';
 
+import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 
+// Animation component for scroll-triggered animations
+interface AnimatedContentProps {
+    children: React.ReactNode;
+    distance?: number;
+    direction?: 'horizontal' | 'vertical';
+    reverse?: boolean;
+    initialOpacity?: number;
+    animateOpacity?: boolean;
+    scale?: number;
+    threshold?: number;
+    delay?: number;
+    enableScrollUp?: boolean;
+}
 
-const BadgerStateSolutions = () => {
+const AnimatedContent: React.FC<AnimatedContentProps> = ({
+    children,
+    distance = 50,
+    direction = 'vertical',
+    reverse = false,
+    initialOpacity = 0,
+    animateOpacity = true,
+    scale = 1,
+    threshold = 0.1,
+    delay = 0,
+    enableScrollUp = false
+}) => {
+    const [isVisible, setIsVisible] = useState(false);
+    const [hasAnimated, setHasAnimated] = useState(false);
+    const elementRef = useRef<HTMLDivElement>(null);
 
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && (!hasAnimated || enableScrollUp)) {
+                    setTimeout(() => {
+                        setIsVisible(true);
+                        if (!enableScrollUp) {
+                            setHasAnimated(true);
+                        }
+                    }, delay);
+                } else if (!entry.isIntersecting && enableScrollUp) {
+                    setIsVisible(false);
+                }
+            },
+            {
+                threshold,
+                rootMargin: '0px 0px -50px 0px'
+            }
+        );
 
+        if (elementRef.current) {
+            observer.observe(elementRef.current);
+        }
 
+        return () => {
+            if (elementRef.current) {
+                observer.unobserve(elementRef.current);
+            }
+        };
+    }, [threshold, delay, hasAnimated, enableScrollUp]);
+
+    const getTransform = () => {
+        if (!isVisible) {
+            const translateValue = reverse ? -distance : distance;
+            if (direction === 'horizontal') {
+                return `translateX(${translateValue}px) scale(${scale})`;
+            } else {
+                return `translateY(${translateValue}px) scale(${scale})`;
+            }
+        }
+        return `translateX(0) translateY(0) scale(1)`;
+    };
 
     return (
-        <div className="min-h-screen bg-white overflow-x-hidden">
+        <div
+            ref={elementRef}
+            style={{
+                transform: getTransform(),
+                opacity: animateOpacity ? (isVisible ? 1 : initialOpacity) : 1,
+                transition: 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            }}
+        >
+            {children}
+        </div>
+    );
+};
 
-            {/* Modern Header */}
-            <header className="fixed top-0 w-full z-50 backdrop-blur shadow-xs border-b border-white/10 saturate-100 ">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center py-4">
-                        <div className="flex items-center space-x-2">
-                            <Image
-                                src="/logo.png"
-                                alt="Badger State Solutions Logo"
-                                width={40}
-                                height={40}
-                                className=""
-                            />
-                            <span className="text-2xl font-bold text-blue-900">
-                                Badger State Solutions
-                            </span>
+const BadgerStateSolutions: React.FC = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    return (
+        <div className="min-h-screen bg-slate-50">
+            {/* Header - Arc.net inspired minimal design */}
+            <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/50">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                    <div className="flex justify-between items-center py-4 lg:py-5">
+                        <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-lg flex items-center justify-center">
+                                <span className="text-white font-black text-sm lg:text-base">BS</span>
+                            </div>
+                            <div>
+                                <h1 className="text-lg lg:text-xl font-bold text-slate-900 tracking-tight">
+                                    Badger State Solutions
+                                </h1>
+                            </div>
                         </div>
-                        <nav className="hidden md:flex items-center space-x-8">
-                            <a
-                                href="#about"
-                                className="text-blue-800 hover:text-blue-600 transition-colors font-medium"
-                            >
+
+                        {/* Desktop Navigation */}
+                        <nav className="hidden md:flex space-x-8">
+                            <a href="#about" className="text-slate-600 hover:text-slate-900 font-medium transition-colors duration-200">
                                 About
                             </a>
-                            <a
-                                href="#services"
-                                className="text-blue-800 hover:text-blue-600 transition-colors font-medium"
-                            >
+                            <a href="#services" className="text-slate-600 hover:text-slate-900 font-medium transition-colors duration-200">
                                 Services
                             </a>
-                            <a
-                                href="#contact"
-                                className="text-blue-800 hover:text-blue-600 transition-colors font-medium"
-                            >
-                                Contact
+                            <a href="#approach" className="text-slate-600 hover:text-slate-900 font-medium transition-colors duration-200">
+                                Approach
                             </a>
-                            <button className="bg-gradient-to-r from-blue-700 to-blue-500 text-white px-6 py-2.5 rounded-full hover:shadow-lg hover:scale-105 transition-all duration-300 font-medium">
+                            <a href="#contact" className="bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors duration-200 font-medium">
                                 Get Started
-                            </button>
+                            </a>
                         </nav>
+
+                        {/* Mobile Menu Button */}
+                        <button
+                            onClick={toggleMenu}
+                            className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors duration-200"
+                        >
+                            <div className="w-5 h-5 flex flex-col justify-center items-center">
+                                <span className={`block w-4 h-0.5 bg-slate-700 transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-0.5' : ''}`}></span>
+                                <span className={`block w-4 h-0.5 bg-slate-700 transition-all duration-300 mt-1 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+                                <span className={`block w-4 h-0.5 bg-slate-700 transition-all duration-300 mt-1 ${isMenuOpen ? '-rotate-45 -translate-y-0.5' : ''}`}></span>
+                            </div>
+                        </button>
                     </div>
+
+                    {/* Mobile Navigation */}
+                    {isMenuOpen && (
+                        <nav className="md:hidden pb-6 border-t border-slate-200/50 pt-6">
+                            <div className="flex flex-col space-y-4">
+                                <a href="#about" className="text-slate-600 hover:text-slate-900 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
+                                    About
+                                </a>
+                                <a href="#services" className="text-slate-600 hover:text-slate-900 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
+                                    Services
+                                </a>
+                                <a href="#approach" className="text-slate-600 hover:text-slate-900 font-medium transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>
+                                    Approach
+                                </a>
+                                <a href="#contact" className="bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition-colors duration-200 font-medium text-center" onClick={() => setIsMenuOpen(false)}>
+                                    Get Started
+                                </a>
+                            </div>
+                        </nav>
+                    )}
                 </div>
             </header>
 
-            {/* Hero Section with Mesh Gradient */}
-            <section className="relative min-h-screen flex items-center justify-center mesh-gradient pt-20">
-                <div className="absolute inset-0 bg-gradient-to-b from-blue-50/90 via-blue-100/90 via-stone-50/70 to-white"></div>
-                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">
+            {/* Hero Section - Arc.net inspired bold design */}
+            <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900">
+                {/* Animated Background Grid */}
+                <div className="absolute inset-0 opacity-20">
+                    <div className="absolute inset-0" style={{
+                        backgroundImage: `
+                            linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px)
+                        `,
+                        backgroundSize: '50px 50px',
+                        animation: 'grid-move 20s linear infinite'
+                    }}></div>
+                </div>
+
+                {/* Floating Elements */}
+                <div className="absolute inset-0">
+                    <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl animate-pulse"></div>
+                    <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-conic from-indigo-500/10 via-purple-500/10 to-indigo-500/10 rounded-full blur-3xl animate-spin-slow"></div>
+                </div>
+
+                <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
                     <AnimatedContent
                         distance={100}
                         direction="vertical"
-                        reverse={true}
+                        reverse={false}
                         initialOpacity={0}
                         animateOpacity
-                        scale={1.0}
+                        scale={0.9}
                         threshold={0.1}
-                        enableScrollUp={true}
+                        delay={200}
                     >
-                        <div className="animate-float">
-                            <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-6 sm:mb-8">
-                                <Sparkles className="w-3 sm:w-4 h-3 sm:h-4 text-blue-600 mr-2" />
-                                <span className="text-xs sm:text-sm font-medium text-blue-800">
-                                    Trusted By Business Worldwide
-                                </span>
-                            </div>
-                        </div>
+                        <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white mb-8 tracking-tight leading-[0.9]">
+                            Business
+                            <br />
+                            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                                Transformed
+                            </span>
+                        </h1>
                     </AnimatedContent>
 
                     <AnimatedContent
-                        distance={100}
+                        distance={80}
                         direction="vertical"
                         reverse={false}
                         initialOpacity={0}
-                        enableScrollUp={true}
                         animateOpacity
                         scale={1.0}
                         threshold={0.1}
+                        delay={400}
                     >
-                        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-8 sm:mb-10 md:mb-12 leading-[0.9] tracking-[-0.04em] text-center">
-                            <div className="mb-4">
-                                <span className="bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900 bg-clip-text text-transparent font-black">Badger State</span>
-                                <br />
-                                <AuroraText className="font-black">Solutions</AuroraText>
-                            </div>
-                            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-medium tracking-tight mt-6 leading-tight">
-                                <AuroraText
-                                    colors={["#1e3a8a", "#2563eb", "#3b82f6", "#0a2540", "#60a5fa"]}
-                                    speed={1}
-                                    className="font-semibold"
-                                >
-                                    Driven by Insight.<br />Focused on Results.
-                                </AuroraText>
-                            </div>
-                        </h1>
-                    </AnimatedContent>
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.3}
-                        delay={130}
-                        enableScrollUp={true}
-                    >
-                        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-blue-700/90 mb-8 sm:mb-10 md:mb-12 max-w-4xl mx-auto leading-relaxed ">
-                            Partner with Badger State Solutions to unlock your organization&apos;s potential, streamline operations, and achieve lasting growth.
+                        <p className="text-xl sm:text-2xl lg:text-3xl text-slate-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
+                            We don&apos;t just advise—we transform. Partner with us to unlock exponential growth, 
+                            streamline operations, and build the future your business deserves.
                         </p>
                     </AnimatedContent>
 
                     <AnimatedContent
-                        distance={100}
+                        distance={60}
                         direction="vertical"
                         reverse={false}
                         initialOpacity={0}
                         animateOpacity
                         scale={1.0}
-                        threshold={0.3}
-                        delay={160}
-                        enableScrollUp={true}
+                        threshold={0.1}
+                        delay={600}
                     >
-                        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-12 sm:mb-16">
-                            <button
-                                className="group relative overflow-hidden bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 text-white px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 rounded-2xl text-base sm:text-lg md:text-xl font-semibold hover:shadow-2xl hover:shadow-blue-500/30 hover:scale-[1.02] transition-all duration-500 border border-blue-500/20 backdrop-blur-sm w-full sm:w-auto min-w-[200px]"
-                            >
-                                <span className="relative z-10 flex items-center justify-center gap-3">
-                                    <span>Contact Us</span>
-                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                                </span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mb-16">
+                            <button className="group relative overflow-hidden bg-white text-slate-900 px-8 lg:px-12 py-4 lg:py-5 rounded-xl text-lg lg:text-xl font-bold hover:shadow-2xl hover:shadow-white/20 hover:scale-105 transition-all duration-300">
+                                <span className="relative z-10">Start Your Transformation →</span>
                             </button>
-                            <button className="group relative overflow-hidden bg-white/80 backdrop-blur-sm text-blue-900 px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 rounded-2xl text-base sm:text-lg md:text-xl font-semibold hover:shadow-2xl hover:shadow-blue-500/20 hover:scale-[1.02] transition-all duration-500 border-2 border-blue-300/50 hover:border-blue-400/70 w-full sm:w-auto min-w-[200px]">
-                                <span className="relative z-10 flex items-center justify-center gap-3">
-                                    <span>Learn More</span>
-                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                                </span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <button className="group relative overflow-hidden bg-white/10 backdrop-blur-md text-white px-8 lg:px-12 py-4 lg:py-5 rounded-xl text-lg lg:text-xl font-medium hover:bg-white/20 transition-all duration-300 border border-white/20">
+                                <span className="relative z-10">See Our Work</span>
                             </button>
                         </div>
                     </AnimatedContent>
 
-
-                </div>
-
-                {/* Floating Elements */}
-                <div className="absolute top-1/4 left-10 w-20 h-20 bg-blue-500/10 rounded-full animate-float"></div>
-                <div
-                    className="absolute top-1/3 right-16 w-16 h-16 bg-blue-400/10 rounded-full animate-float"
-                    style={{ animationDelay: "2s" }}
-                ></div>
-                <div
-                    className="absolute bottom-1/4 left-1/4 w-12 h-12 bg-blue-300/10 rounded-full animate-float"
-                    style={{ animationDelay: "4s" }}
-                ></div>
-            </section>
-
-            {/* About Us Section */}
-            <section id="about" className="py-24 sm:py-32 bg-gradient-to-b from-white via-blue-50/20 to-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <AnimatedContent
-                        distance={100}
+                        distance={40}
                         direction="vertical"
                         reverse={false}
                         initialOpacity={0}
                         animateOpacity
                         scale={1.0}
                         threshold={0.1}
-                        delay={100}
-                        enableScrollUp={true}
+                        delay={800}
                     >
-                        <div className="text-center mb-16 sm:mb-20">
-                            <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-blue-900 mb-6 tracking-tight">
-                                <span className="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-400 bg-clip-text text-transparent">About</span> Us
-                            </h2>
-                            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-400 mx-auto mb-8"></div>
-                        </div>
-                    </AnimatedContent>
-
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={150}
-                        enableScrollUp={true}
-                    >
-                        <div className="text-center mb-12">
-                            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-blue-800 mb-8 tracking-tight">
-                                Who We Are
-                            </h3>
-                            <p className="text-xl sm:text-2xl lg:text-3xl text-blue-700/90 text-center mb-12 max-w-5xl mx-auto ">
-                                At Badger State Solutions, we are a business management and consulting firm dedicated to helping organizations thrive.
-                            </p>
-                        </div>
-                    </AnimatedContent>
-
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={200}
-                        enableScrollUp={true}
-                    >
-                        <div className="bg-gradient-to-r from-blue-50/50 to-blue-100/30 backdrop-blur-sm border border-blue-200/50 rounded-xl p-8 lg:p-12 mb-8">
-                            <h4 className="text-2xl lg:text-3xl font-bold text-blue-800 mb-8 lg:mb-10 text-center tracking-tight">
-                                We work alongside you to:
-                            </h4>
-                            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="flex justify-center items-center text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                                        <Image
-                                            src="/icons/strategy.png"
-                                            alt="Strategy Icon"
-                                            width={75}
-                                            height={75}
-                                            className="w-24 h-24">
-
-                                        </Image>
-                                    </div>
-                                    <h5 className="text-xl lg:text-2xl font-bold text-blue-800 mb-2 tracking-tight">Streamline operations</h5>
-                                </div>
-                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="flex justify-center items-center text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                                        <Image
-                                            src="/icons/operation.png"
-                                            alt="Performance Icon"
-                                            width={75}
-                                            height={75}
-                                            className="w-24 h-24">
-
-                                        </Image>
-                                    </div>
-                                    <h5 className="text-xl lg:text-2xl font-bold text-blue-800 mb-2 tracking-tight">Improve performance</h5>
-                                </div>
-                                <div className="group justify-center items-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="flex  justify-center items-center text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                                        <Image
-                                            src="/icons/rising.png"
-                                            alt="Growth Icon"
-                                            width={75}
-                                            height={75}
-                                            className="w-24 h-24 justify-center items-center">
-
-                                        </Image>
-                                    </div>
-                                    <h5 className="text-xl lg:text-2xl font-bold text-blue-800 mb-2 tracking-tight">Achieve sustainable growth</h5>
-                                </div>
+                        <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto text-slate-300">
+                            <div className="text-center">
+                                <div className="text-3xl lg:text-4xl font-black text-white mb-2">500+</div>
+                                <div className="text-sm lg:text-base font-medium">Businesses Transformed</div>
+                            </div>
+                            <div className="text-center">
+                                <div className="text-3xl lg:text-4xl font-black text-white mb-2">$50M+</div>
+                                <div className="text-sm lg:text-base font-medium">Revenue Generated</div>
+                            </div>
+                            <div className="text-center">
+                                <div className="text-3xl lg:text-4xl font-black text-white mb-2">15+</div>
+                                <div className="text-sm lg:text-base font-medium">Years Leading</div>
                             </div>
                         </div>
                     </AnimatedContent>
+                </div>
 
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={250}
-                        enableScrollUp={true}
-                    >
-                        <div className="max-w-5xl mx-auto text-center">
-                            <p className="text-2xl text-blue-700 mb-6 leading-relaxed">
-                                With tailored strategies, operational support, and expert guidance, we help businesses across a wide range of industries enhance efficiency, navigate challenges, and scale with
-                                <br></br>
-                                confidence.
-                            </p>
-                            <p className="text-2xl text-blue-700 leading-relaxed">
-                                Whether you&apos;re a small startup or an established enterprise, Badger State Solutions provides the insight and support you need to succeed.
-                            </p>
-                        </div>
-                    </AnimatedContent>
+                {/* Scroll Indicator */}
+                <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+                    <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+                        <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
+                    </div>
                 </div>
             </section>
 
-
-
-            {/* Our Services Section */}
-            <section id="services" className="py-24 sm:py-32 bg-gradient-to-b from-white via-blue-50/10 to-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* About Section - Arc.net inspired clean design */}
+            <section id="about" className="py-24 lg:py-32 bg-white">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8">
                     <AnimatedContent
-                        distance={100}
+                        distance={80}
                         direction="vertical"
                         reverse={false}
                         initialOpacity={0}
@@ -316,20 +291,19 @@ const BadgerStateSolutions = () => {
                         delay={100}
                         enableScrollUp={true}
                     >
-                        <div className="text-center mb-16 sm:mb-20">
-                            <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-blue-900 mb-6 tracking-tight">
-                                <span className="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-400 bg-clip-text text-transparent">Our</span> Services
+                        <div className="text-center mb-16 lg:mb-20">
+                            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tight">
+                                Who We <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Are</span>
                             </h2>
-                            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-400 mx-auto mb-8"></div>
-                            <p className="text-xl sm:text-2xl lg:text-3xl text-blue-700/90 text-center mb-12 max-w-4xl mx-auto leading-relaxed font-light">
-                                We offer a range of solutions to help your business excel:
+                            <p className="text-xl sm:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed font-light">
+                                We're not just consultants—we're transformation architects who turn ambitious visions into measurable results.
                             </p>
                         </div>
                     </AnimatedContent>
 
-                    <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mb-20">
+                    <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
                         <AnimatedContent
-                            distance={100}
+                            distance={60}
                             direction="vertical"
                             reverse={false}
                             initialOpacity={0}
@@ -339,24 +313,21 @@ const BadgerStateSolutions = () => {
                             delay={150}
                             enableScrollUp={true}
                         >
-                            <div className="group bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-blue-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
-                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                                    <Image
-                                        src="/icons/strategy.png"
-                                        alt="Strategy Icon"
-                                        width={75}
-                                        height={75}
-                                        className="w-24 h-24">
-
-                                    </Image>
+                            <div className="group p-8 lg:p-10 rounded-2xl bg-gradient-to-br from-slate-50 to-indigo-50/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-100 text-center h-full">
+                                <div className="w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
                                 </div>
-                                <h3 className="text-2xl lg:text-3xl font-bold text-blue-800 mb-6 tracking-tight">Strategy Development</h3>
-                                <p className="text-lg text-blue-700/90 leading-relaxed font-light">Crafting actionable plans aligned with your goals and market realities.</p>
+                                <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4">Our Mission</h3>
+                                <p className="text-lg text-slate-600 leading-relaxed">
+                                    Empower businesses to achieve exponential growth through strategic innovation, operational excellence, and data-driven decision making.
+                                </p>
                             </div>
                         </AnimatedContent>
 
                         <AnimatedContent
-                            distance={100}
+                            distance={60}
                             direction="vertical"
                             reverse={false}
                             initialOpacity={0}
@@ -366,24 +337,22 @@ const BadgerStateSolutions = () => {
                             delay={200}
                             enableScrollUp={true}
                         >
-                            <div className="group bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-blue-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
-                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                                    <Image
-                                        src="/icons/operation.png"
-                                        alt="Operation Icon"
-                                        width={75}
-                                        height={75}
-                                        className="w-24 h-24">
-
-                                    </Image>
+                            <div className="group p-8 lg:p-10 rounded-2xl bg-gradient-to-br from-slate-50 to-purple-50/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-100 text-center h-full">
+                                <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
                                 </div>
-                                <h3 className="text-2xl lg:text-3xl font-bold text-blue-800 mb-6 tracking-tight">Operational Excellence</h3>
-                                <p className="text-lg text-blue-700/90 leading-relaxed font-light">Identifying and eliminating inefficiencies to maximize productivity.</p>
+                                <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4">Our Vision</h3>
+                                <p className="text-lg text-slate-600 leading-relaxed">
+                                    To be the catalyst that transforms ambitious businesses into industry-defining leaders of tomorrow.
+                                </p>
                             </div>
                         </AnimatedContent>
 
                         <AnimatedContent
-                            distance={100}
+                            distance={60}
                             direction="vertical"
                             reverse={false}
                             initialOpacity={0}
@@ -393,24 +362,124 @@ const BadgerStateSolutions = () => {
                             delay={250}
                             enableScrollUp={true}
                         >
-                            <div className="group bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-blue-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
-                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                                    <Image
-                                        src="/icons/rising.png"
-                                        alt="Performance Icon"
-                                        width={75}
-                                        height={75}
-                                        className="w-24 h-24">
-
-                                    </Image>
+                            <div className="group p-8 lg:p-10 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-700 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-center text-white h-full relative overflow-hidden">
+                                <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent"></div>
+                                <div className="relative z-10">
+                                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                        </svg>
+                                    </div>
+                                    <div className="text-4xl lg:text-5xl font-black mb-2 text-white">15+</div>
+                                    <h3 className="text-2xl lg:text-3xl font-bold mb-4">Years Leading</h3>
+                                    <p className="text-lg opacity-90 leading-relaxed">
+                                        Business Transformation Excellence
+                                    </p>
                                 </div>
-                                <h3 className="text-2xl lg:text-3xl font-bold text-blue-800 mb-6 tracking-tight">Performance Improvement</h3>
-                                <p className="text-lg text-blue-700/90 leading-relaxed font-light">Driving measurable results through analytics, innovation, and best practices.</p>
+                                {/* Floating geometric elements */}
+                                <div className="absolute top-4 right-4 w-8 h-8 bg-white/10 rounded-lg rotate-12 animate-pulse backdrop-blur-sm"></div>
+                                <div className="absolute bottom-4 left-4 w-6 h-6 bg-white/10 rounded-md -rotate-12 animate-pulse delay-1000 backdrop-blur-sm"></div>
+                                <div className="absolute top-1/2 right-4 w-4 h-4 bg-white/10 rounded-full animate-pulse delay-500 backdrop-blur-sm"></div>
+                            </div>
+                        </AnimatedContent>
+                    </div>
+                </div>
+            </section>
+
+            {/* Services Section - Arc.net inspired card design */}
+            <section id="services" className="py-24 lg:py-32 bg-gradient-to-br from-slate-50 to-indigo-50/30">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                    <AnimatedContent
+                        distance={80}
+                        direction="vertical"
+                        reverse={false}
+                        initialOpacity={0}
+                        animateOpacity
+                        scale={1.0}
+                        threshold={0.1}
+                        delay={100}
+                        enableScrollUp={true}
+                    >
+                        <div className="text-center mb-16 lg:mb-20">
+                            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tight">
+                                Our <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Services</span>
+                            </h2>
+                            <p className="text-xl sm:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed font-light">
+                                Comprehensive solutions designed to accelerate your business transformation.
+                            </p>
+                        </div>
+                    </AnimatedContent>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                        <AnimatedContent
+                            distance={60}
+                            direction="vertical"
+                            reverse={false}
+                            initialOpacity={0}
+                            animateOpacity
+                            scale={1.0}
+                            threshold={0.1}
+                            delay={150}
+                            enableScrollUp={true}
+                        >
+                            <div className="group p-8 rounded-2xl bg-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-200/50 h-full">
+                                <div className="w-12 h-12 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl font-bold text-slate-900 mb-4">Strategy Development</h3>
+                                <p className="text-slate-600 leading-relaxed">Craft data-driven strategies that align with your vision and market opportunities.</p>
                             </div>
                         </AnimatedContent>
 
                         <AnimatedContent
-                            distance={100}
+                            distance={60}
+                            direction="vertical"
+                            reverse={false}
+                            initialOpacity={0}
+                            animateOpacity
+                            scale={1.0}
+                            threshold={0.1}
+                            delay={200}
+                            enableScrollUp={true}
+                        >
+                            <div className="group p-8 rounded-2xl bg-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-200/50 h-full">
+                                <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl font-bold text-slate-900 mb-4">Operational Excellence</h3>
+                                <p className="text-slate-600 leading-relaxed">Optimize processes and eliminate inefficiencies to maximize productivity and ROI.</p>
+                            </div>
+                        </AnimatedContent>
+
+                        <AnimatedContent
+                            distance={60}
+                            direction="vertical"
+                            reverse={false}
+                            initialOpacity={0}
+                            animateOpacity
+                            scale={1.0}
+                            threshold={0.1}
+                            delay={250}
+                            enableScrollUp={true}
+                        >
+                            <div className="group p-8 rounded-2xl bg-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-200/50 h-full">
+                                <div className="w-12 h-12 bg-gradient-to-br from-pink-600 to-rose-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl font-bold text-slate-900 mb-4">Performance Analytics</h3>
+                                <p className="text-slate-600 leading-relaxed">Drive measurable results through advanced analytics and performance optimization.</p>
+                            </div>
+                        </AnimatedContent>
+
+                        <AnimatedContent
+                            distance={60}
                             direction="vertical"
                             reverse={false}
                             initialOpacity={0}
@@ -420,30 +489,25 @@ const BadgerStateSolutions = () => {
                             delay={300}
                             enableScrollUp={true}
                         >
-                            <div className="group bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-blue-300/70 transition-all duration-300 hover:-translate-y-2 h-full">
-                                <div className="text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                                    <Image
-                                        src="/icons/growth.png"
-                                        alt="Growth Icon"
-                                        width={75}
-                                        height={75}
-                                        className="w-24 h-24">
-
-                                    </Image>
+                            <div className="group p-8 rounded-2xl bg-white hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-200/50 h-full">
+                                <div className="w-12 h-12 bg-gradient-to-br from-rose-600 to-orange-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11l5-5m0 0l5 5m-5-5v12" />
+                                    </svg>
                                 </div>
-                                <h3 className="text-2xl lg:text-3xl font-bold text-blue-800 mb-6 tracking-tight">Growth & Scaling Support</h3>
-                                <p className="text-lg text-blue-700/90 leading-relaxed font-light">Guiding your organization through periods of rapid growth or change.</p>
+                                <h3 className="text-xl font-bold text-slate-900 mb-4">Growth Acceleration</h3>
+                                <p className="text-slate-600 leading-relaxed">Scale your business with confidence through strategic growth planning and execution.</p>
                             </div>
                         </AnimatedContent>
                     </div>
                 </div>
             </section>
 
-            {/* Our Approach Section */}
-            <section className="py-24 sm:py-32 bg-gradient-to-b from-white via-amber-50/20 to-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Approach Section - Arc.net inspired process design */}
+            <section id="approach" className="py-24 lg:py-32 bg-white">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8">
                     <AnimatedContent
-                        distance={100}
+                        distance={80}
                         direction="vertical"
                         reverse={false}
                         initialOpacity={0}
@@ -453,37 +517,18 @@ const BadgerStateSolutions = () => {
                         delay={100}
                         enableScrollUp={true}
                     >
-                        <div className="text-center mb-16 sm:mb-20">
-                            <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-amber-900 mb-6 tracking-tight">
-                                <span className="bg-gradient-to-r from-amber-800 via-amber-600 to-yellow-600 bg-clip-text text-transparent">Our</span> Approach
+                        <div className="text-center mb-16 lg:mb-20">
+                            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tight">
+                                Our <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Approach</span>
                             </h2>
-                            <div className="w-24 h-1 bg-gradient-to-r from-amber-600 to-yellow-600 mx-auto mb-8"></div>
-                        </div>
-                    </AnimatedContent>
-
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={150}
-                        enableScrollUp={true}
-                    >
-                        <div className="text-center mb-12">
-                            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-amber-800 mb-8 tracking-tight">
-                                How We Work
-                            </h3>
-                            <p className="text-xl sm:text-2xl lg:text-3xl text-amber-700/90 text-center mb-12 max-w-5xl mx-auto leading-relaxed font-light">
-                                Our proven methodology ensures consistent results and sustainable growth for your business.
+                            <p className="text-xl sm:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed font-light">
+                                A proven methodology that delivers consistent, measurable results for sustainable growth.
                             </p>
                         </div>
                     </AnimatedContent>
 
                     <AnimatedContent
-                        distance={100}
+                        distance={60}
                         direction="vertical"
                         reverse={false}
                         initialOpacity={0}
@@ -493,82 +538,46 @@ const BadgerStateSolutions = () => {
                         delay={200}
                         enableScrollUp={true}
                     >
-                        <div className="bg-gradient-to-r from-amber-50/50 to-yellow-50/30 backdrop-blur-sm border border-amber-200/50 rounded-xl p-8 lg:p-12 mb-8">
-                            <h4 className="text-2xl lg:text-3xl font-bold text-amber-800 mb-8 lg:mb-10 text-center tracking-tight">
-                                Our Process:
-                            </h4>
-                            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="flex justify-center items-center text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                                        <Image
-                                            src="/icons/assesment.png"
-                                            alt="Growth Icon"
-                                            width={75}
-                                            height={75}
-                                            className="w-18 h-18">
-
-                                        </Image>
-                                    </div>
-                                    <h5 className="text-xl lg:text-2xl font-bold text-amber-800 mb-2 tracking-tight">Assessment & Planning</h5>
+                        <div className="grid md:grid-cols-3 gap-8 lg:gap-16">
+                            <div className="text-center group">
+                                <div className="w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <span className="text-white font-black text-xl">1</span>
                                 </div>
-                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="flex justify-center items-center text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                                        <Image
-                                            src="/icons/implementation.png"
-                                            alt="Growth Icon"
-                                            width={75}
-                                            height={75}
-                                            className="w-18 h-18">
-
-                                        </Image>
-                                    </div>
-                                    <h5 className="text-xl lg:text-2xl font-bold text-amber-800 mb-2 tracking-tight">Implementation</h5>
-                                </div>
-                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="flex justify-center items-center text-4xl lg:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                                        <Image
-                                            src="/icons/rising.png"
-                                            alt="Growth Icon"
-                                            width={75}
-                                            height={75}
-                                            className="w-18 h-18">
-
-                                        </Image>
-                                    </div>
-                                    <h5 className="text-xl lg:text-2xl font-bold text-amber-800 mb-2 tracking-tight">Monitoring & Optimization</h5>
-                                </div>
+                                <h3 className="text-2xl font-bold text-slate-900 mb-4">Discover & Analyze</h3>
+                                <p className="text-slate-600 leading-relaxed">
+                                    Deep dive into your business to understand challenges, opportunities, and untapped potential.
+                                </p>
                             </div>
-                        </div>
-                    </AnimatedContent>
 
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={250}
-                        enableScrollUp={true}
-                    >
-                        <div className="max-w-4xl mx-auto text-center">
-                            <p className="text-2xl text-amber-700 mb-6 leading-relaxed">
-                                We begin with a thorough understanding of your business, challenges, and goals, then develop customized strategies that align with your vision.
-                            </p>
-                            <p className="text-2xl text-amber-700 leading-relaxed">
-                                Our collaborative approach ensures that you&apos;re involved every step of the way, from initial planning to final implementation and ongoing support.
-                            </p>
+                            <div className="text-center group">
+                                <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <span className="text-white font-black text-xl">2</span>
+                                </div>
+                                <h3 className="text-2xl font-bold text-slate-900 mb-4">Design & Strategize</h3>
+                                <p className="text-slate-600 leading-relaxed">
+                                    Create customized solutions and strategic roadmaps tailored to your specific goals and market position.
+                                </p>
+                            </div>
+
+                            <div className="text-center group">
+                                <div className="w-16 h-16 bg-gradient-to-br from-pink-600 to-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                                    <span className="text-white font-black text-xl">3</span>
+                                </div>
+                                <h3 className="text-2xl font-bold text-slate-900 mb-4">Deploy & Optimize</h3>
+                                <p className="text-slate-600 leading-relaxed">
+                                    Implement solutions with hands-on support and continuously optimize for maximum impact and ROI.
+                                </p>
+                            </div>
                         </div>
                     </AnimatedContent>
                 </div>
             </section>
 
-            {/* Why Choose Us Section */}
-            <section className="py-24 sm:py-32 bg-gradient-to-b from-white via-amber-50/10 to-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Contact Section - Arc.net inspired minimal design */}
+            <section id="contact" className="py-24 lg:py-32 bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900">
+                <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
                     <AnimatedContent
-                        distance={100}
+                        distance={80}
                         direction="vertical"
                         reverse={false}
                         initialOpacity={0}
@@ -578,119 +587,18 @@ const BadgerStateSolutions = () => {
                         delay={100}
                         enableScrollUp={true}
                     >
-                        <div className="text-center mb-16 sm:mb-20">
-                            <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-amber-900 mb-6 tracking-tight">
-                                <span className="bg-gradient-to-r from-amber-800 via-amber-600 to-yellow-600 bg-clip-text text-transparent">Why Choose</span> Us?
+                        <div className="mb-16">
+                            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tight">
+                                Ready to <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Transform?</span>
                             </h2>
-                            <div className="w-24 h-1 bg-gradient-to-r from-amber-600 to-yellow-600 mx-auto mb-8"></div>
-                            <p className="text-xl sm:text-2xl lg:text-3xl text-amber-700/90 text-center mb-12 max-w-5xl mx-auto leading-relaxed font-light">
-                                Discover what sets Badger State Solutions apart as your ideal business partner.
+                            <p className="text-xl sm:text-2xl text-slate-300 mb-12 leading-relaxed font-light">
+                                Let's discuss how we can accelerate your business growth and unlock your organization's full potential.
                             </p>
                         </div>
                     </AnimatedContent>
 
                     <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={150}
-                        enableScrollUp={true}
-                    >
-                        <div className="bg-gradient-to-r from-blue-100/60 to-blue-200/40 backdrop-blur-sm border border-blue-300/60 rounded-2xl p-10 lg:p-12">
-                            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold  text-amber-700/90 mb-12 text-center tracking-tight">Why Choose Us?</h3>
-                            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
-                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="flex justify-center items-center text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                                        <Image
-                                            src="/icons/winner.png"
-                                            alt="Industry Experience Icon"
-                                            width={75}
-                                            height={75}
-                                            className="w-18 h-18">
-
-                                        </Image>
-                                    </div>
-                                    <p className="text-lg lg:text-xl  text-amber-700/90 font-bold leading-relaxed">Industry experience across diverse sectors</p>
-                                </div>
-                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="flex justify-center items-center text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                                        <Image
-                                            src="/icons/strategy.png"
-                                            alt="Strategy Icon"
-                                            width={75}
-                                            height={75}
-                                            className="w-18 h-18">
-
-                                        </Image>
-                                    </div>
-                                    <p className="text-lg lg:text-xl  text-amber-700/90 font-bold leading-relaxed">Customized strategies for your unique challenges</p>
-                                </div>
-                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="flex justify-center items-center text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                                        <Image
-                                            src="/icons/handshake.png"
-                                            alt="Support Icon"
-                                            width={75}
-                                            height={75}
-                                            className="w-18 h-18">
-
-                                        </Image>
-                                    </div>
-                                    <p className="text-lg lg:text-xl  text-amber-700/90 font-bold leading-relaxed">Hands-on support, not just advice</p>
-                                </div>
-                                <div className="group text-center hover:-translate-y-1 transition-transform duration-300">
-                                    <div className="flex justify-center items-center text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                                        <Image
-                                            src="/icons/histogram.png"
-                                            alt="Track Record Icon"
-                                            width={75}
-                                            height={75}
-                                            className="w-18 h-18">
-
-                                        </Image>
-                                    </div>
-                                    <p className="text-lg lg:text-xl  text-amber-700/90 font-bold leading-relaxed">Proven track record of delivering results</p>
-                                </div>
-                            </div>
-                        </div>
-                    </AnimatedContent>
-                </div>
-            </section>
-
-            {/* Contact Us Section */}
-            <section id="contact" className="py-24 sm:py-32 bg-gradient-to-b from-blue-50/40 via-white to-blue-50/20">
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={100}
-                        enableScrollUp={true}
-                    >
-                        <div className="mb-16 sm:mb-20">
-                            <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-blue-900 mb-6 tracking-tight">
-                                <span className="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-400 bg-clip-text text-transparent">Contact</span> Us
-                            </h2>
-                            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-blue-400 mx-auto mb-8"></div>
-                            <p className="text-xl sm:text-2xl lg:text-3xl text-blue-700/90 mb-6 font-light leading-relaxed">
-                                Ready to take your business to the next level?
-                            </p>
-                            <p className="text-lg sm:text-xl lg:text-2xl text-blue-700/80 mb-12 font-light">
-                                We&apos;d love to hear from you!
-                            </p>
-                        </div>
-                    </AnimatedContent>
-
-                    <AnimatedContent
-                        distance={100}
+                        distance={60}
                         direction="vertical"
                         reverse={false}
                         initialOpacity={0}
@@ -700,119 +608,81 @@ const BadgerStateSolutions = () => {
                         delay={200}
                         enableScrollUp={true}
                     >
-                        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-4xl mx-auto">
-                            <div className="group bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-blue-300/70 transition-all duration-300 hover:-translate-y-2">
-                                <div className="text-center">
-                                    <div className="flex justify-center items-center text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                                        <Image
-                                            src="/icons/mail.png"
-                                            alt="Mail Icon"
-                                            width={75}
-                                            height={75}
-                                            className="w-18 h-18">
-
-                                        </Image>
-                                    </div>
-                                    <p className="text-xl lg:text-2xl font-bold text-blue-800 mb-4 tracking-tight">Email Us</p>
-                                    <a href="mailto:info@badgerstatesolutions.com" className="text-lg lg:text-xl text-blue-600 hover:text-blue-700 transition-colors duration-300 font-medium break-all">
-                                        info@badgerstatesolutions.com
-                                    </a>
+                        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mb-12">
+                            <div className="group p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 hover:-translate-y-1">
+                                <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
                                 </div>
+                                <h3 className="text-xl font-bold text-white mb-2">Email Us</h3>
+                                <a href="mailto:info@badgerstatesolutions.com" className="text-slate-300 hover:text-white transition-colors duration-200">
+                                    info@badgerstatesolutions.com
+                                </a>
                             </div>
-                            <div className="group bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-8 lg:p-10 hover:shadow-2xl hover:border-blue-300/70 transition-all duration-300 hover:-translate-y-2">
-                                <div className="text-center">
-                                    <div className="flex justify-center items-center text-5xl lg:text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                                        <Image
-                                            src="/icons/web.png"
-                                            alt="Mail Icon"
-                                            width={75}
-                                            height={75}
-                                            className="w-18 h-18">
 
-                                        </Image>
-                                    </div>
-                                    <p className="text-xl lg:text-2xl font-bold text-blue-800 mb-4 tracking-tight">Visit Our Website</p>
-                                    <a href="https://www.badgerstatesolutions.com" className="text-lg lg:text-xl text-blue-600 hover:text-blue-700 transition-colors duration-300 font-medium">
-                                        www.badgerstatesolutions.com
-                                    </a>
+                            <div className="group p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all duration-300 hover:-translate-y-1">
+                                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+                                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
+                                    </svg>
                                 </div>
+                                <h3 className="text-xl font-bold text-white mb-2">Visit Our Website</h3>
+                                <a href="https://www.badgerstatesolutions.com" className="text-slate-300 hover:text-white transition-colors duration-200">
+                                    www.badgerstatesolutions.com
+                                </a>
                             </div>
                         </div>
+                    </AnimatedContent>
+
+                    <AnimatedContent
+                        distance={40}
+                        direction="vertical"
+                        reverse={false}
+                        initialOpacity={0}
+                        animateOpacity
+                        scale={1.0}
+                        threshold={0.1}
+                        delay={300}
+                        enableScrollUp={true}
+                    >
+                        <button className="bg-white text-slate-900 px-12 py-5 rounded-xl text-xl font-bold hover:shadow-2xl hover:shadow-white/20 hover:scale-105 transition-all duration-300">
+                            Schedule Your Free Consultation →
+                        </button>
                     </AnimatedContent>
                 </div>
             </section>
 
-            {/* Modern CTA Section */}
-            <section className="py-24 sm:py-32 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white relative overflow-hidden">
-                <div className="absolute inset-0 mesh-gradient opacity-20"></div>
-                <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={100}
-                        enableScrollUp={true}
-                    >
-                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-8 sm:mb-10 tracking-tight leading-tight">
-                            Ready to{" "}
-                            <span className="bg-gradient-to-r from-blue-300 via-blue-200 to-blue-400 bg-clip-text text-transparent animate-gradient">Transform Your Business?</span>
-                        </h2>
-                    </AnimatedContent>
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={220}
-                        enableScrollUp={true}
-                    >
-                        <p className="text-xl sm:text-2xl lg:text-3xl text-blue-100/90 mb-12 sm:mb-14 lg:mb-16 max-w-4xl mx-auto leading-relaxed font-light">
-                            Partner with Badger State Solutions to unlock your organization&apos;s potential and achieve sustainable growth
+            {/* Footer - Arc.net inspired minimal footer */}
+            <footer className="bg-slate-900 text-white py-16 lg:py-20">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                    <div className="flex flex-col md:flex-row justify-between items-center">
+                        <div className="flex items-center space-x-3 mb-6 md:mb-0">
+                            <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-lg flex items-center justify-center">
+                                <span className="text-white font-black text-base">BS</span>
+                            </div>
+                            <span className="text-xl font-bold">Badger State Solutions</span>
+                        </div>
+                        <p className="text-slate-400 text-base">
+                            &copy; 2025 Badger State Solutions. All rights reserved.
                         </p>
-                    </AnimatedContent>
-                    <AnimatedContent
-                        distance={100}
-                        direction="vertical"
-                        reverse={false}
-                        initialOpacity={0}
-                        animateOpacity
-                        scale={1.0}
-                        threshold={0.1}
-                        delay={160}
-                        enableScrollUp={true}
-                    >
-                        <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 justify-center">
-                            <button
-                                className="group relative overflow-hidden bg-gradient-to-r from-blue-700 via-blue-600 to-blue-800 text-white px-10 sm:px-12 lg:px-16 py-4 sm:py-5 lg:py-6 rounded-2xl text-lg sm:text-xl lg:text-2xl font-bold hover:shadow-2xl hover:shadow-blue-500/30 hover:scale-105 transition-all duration-300 border border-blue-500/20 backdrop-blur-sm w-full sm:w-auto tracking-tight"
-                            >
-                                <span className="relative z-10">🚀 Schedule Consultation</span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                            </button>
-                            <button className="group relative overflow-hidden bg-white/10 backdrop-blur-md text-white px-10 sm:px-12 lg:px-16 py-4 sm:py-5 lg:py-6 rounded-2xl text-lg sm:text-xl lg:text-2xl font-bold hover:shadow-2xl hover:shadow-white/10 hover:scale-105 transition-all duration-300 border border-white/20 hover:bg-white/20 w-full sm:w-auto tracking-tight">
-                                <span className="relative z-10">📖 Learn More</span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                            </button>
-                        </div>
-                    </AnimatedContent>
-                </div>
-            </section>
-
-            {/* Simple Copyright Footer */}
-            <footer className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white py-8 lg:py-10">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <p className="text-base lg:text-lg text-blue-100/90 font-light tracking-wide">
-                        &copy; 2025 Badger State Solutions. All rights reserved.
-                    </p>
+                    </div>
                 </div>
             </footer>
 
+            <style jsx>{`
+                @keyframes grid-move {
+                    0% { transform: translate(0, 0); }
+                    100% { transform: translate(50px, 50px); }
+                }
+                @keyframes animate-spin-slow {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+                .animate-spin-slow {
+                    animation: animate-spin-slow 20s linear infinite;
+                }
+            `}</style>
         </div>
     );
 };
