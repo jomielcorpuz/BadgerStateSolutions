@@ -105,7 +105,13 @@ const BadgerStateSolutions: React.FC = () => {
                     <div className="flex justify-between items-center py-4 lg:py-5">
                         <div className="flex items-center space-x-3">
                             <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-lg flex items-center justify-center">
-                                <span className="text-white font-black text-sm lg:text-base">BS</span>
+                                <Image
+                                    src="logo.svg"
+                                    alt="Badger State Solutions Logo"
+                                    width={45}
+                                    height={45}
+                                    className="mt-2"
+                                />
                             </div>
                             <div>
                                 <h1 className="text-lg lg:text-xl font-bold text-slate-900 tracking-tight">
@@ -217,7 +223,7 @@ const BadgerStateSolutions: React.FC = () => {
                         delay={400}
                     >
                         <p className="text-xl sm:text-2xl lg:text-3xl text-slate-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light">
-                            We don&apos;t just advise—we transform. Partner with us to unlock exponential growth, 
+                            We don&apos;t just advise—we transform. Partner with us to unlock exponential growth,
                             streamline operations, and build the future your business deserves.
                         </p>
                     </AnimatedContent>
